@@ -1,6 +1,6 @@
 {
   "name": "vint-qa",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Esteira de QA da Vint Global para qualquer projeto: /vint-qa valida instalações, .env e .hub-projeto.json e abre o menu (documento de teste, cenários, testes manuais, automação Playwright/Robot, pipeline da sprint, revisão de testes e base de conhecimento RAG).",
   "author": {
     "name": "Vint Global — Squad QA"
@@ -9,7 +9,7 @@
   "repository": "https://github.com/brenoalv3s/QAi",
   "license": "UNLICENSED",
   "keywords": ["qa", "testes", "playwright", "robot-framework", "azure-devops", "gitlab", "rag", "bdd"],
-  "logo": "assets/logo.svg",
+  "logo": "assets/logo.png",
   "commands": "./commands/",
   "agents": "./agents/",
   "skills": "./skills/",
