@@ -18,13 +18,12 @@ Repositório do plugin **vint-qa** para o Cursor. Depois de publicado no marketp
 
 Repositório: [github.com/brenoalv3s/QAi](https://github.com/brenoalv3s/QAi). Exige plano **Teams** (1 marketplace) ou **Enterprise** (ilimitados) no Cursor.
 
-1. Instalar o **GitHub App do Cursor** com acesso ao repositório `brenoalv3s/QAi` (necessário para repositório privado e para o Auto Refresh).
+1. Instalar o **GitHub App do Cursor** com acesso ao repositório `brenoalv3s/QAi` (necessário para o Auto Refresh).
 2. No [dashboard do Cursor](https://cursor.com/dashboard) → **Plugins & MCPs** → **Team Marketplaces** → **Add Marketplace** → **Import from Repo** → colar `https://github.com/brenoalv3s/QAi`.
 3. No plugin `vint-qa` detectado → **Add to Marketplace**.
 4. Em **Marketplace Settings**:
    - **Marketplace Access**: toda a organização (ou os grupos desejados)
    - **Enable Auto Refresh**: ligado — cada push na `main` publica a nova versão para todos (em até ~10 min)
-   - Se o repositório for privado e nem todos tiverem acesso a ele no GitHub, ativar **Serve marketplace from Cursor**
 5. Política de instalação do `vint-qa`:
    - **Required** — instalado para todos, sem opção de remover (recomendado para o squad de QA)
    - **Default On** — instalado para todos, cada pessoa pode desligar
@@ -39,7 +38,7 @@ Repositório: [github.com/brenoalv3s/QAi](https://github.com/brenoalv3s/QAi). Ex
 
 ## Sem plano Teams/Enterprise
 
-Cada pessoa pode adicionar o marketplace pela CLI do Cursor e instalar o plugin com `/plugin`:
+O repositório é público: cada pessoa pode adicionar o marketplace pela CLI do Cursor e instalar o plugin com `/plugin`:
 
 ```bash
 agent plugin marketplace add https://github.com/brenoalv3s/QAi

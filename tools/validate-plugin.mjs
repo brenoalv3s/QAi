@@ -116,6 +116,9 @@ for (const entry of plugins) {
     if (/\b(sgd|api-sgd|site)-(dev|tst|hml)\.vintglobal\.com\.br/.test(text) && !r.includes('/examples/')) {
       warn(`${r}: URL de ambiente de um projeto específico`);
     }
+    if (/\/\.attachments\/[\w-]+\.(png|jpe?g|svg|gif)/i.test(text) && !r.includes('/examples/')) {
+      err(`${r}: imagem de wiki de um projeto específico — use {azure.wikiLogo}`);
+    }
     if (/AZURE_DEVOPS_PAT"\s*:\s*"(?!SEU_PAT|\$\{)[A-Za-z0-9]{40,}"|glpat-[A-Za-z0-9_-]{20,}|ghp_[A-Za-z0-9]{30,}|eyJhbGciOi[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}/.test(text)) {
       err(`${r}: possível segredo versionado`);
     }

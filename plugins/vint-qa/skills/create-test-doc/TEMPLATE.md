@@ -10,7 +10,7 @@
 O arquivo `.md` de saída deve conter **exatamente** estas seções, nesta ordem, com estes títulos e formatação:
 
 ```markdown
-![vint-marca-2.png](/.attachments/vint-marca-2-7a1ab209-8590-460b-9e0f-43a4242ae6f2.png =200x60)
+{azure.wikiLogo}
 <table>
 <tr></th>
 <td><b>Número do projeto </b> [Número do Projeto] </td>
@@ -95,7 +95,7 @@ O arquivo `.md` de saída deve conter **exatamente** estas seções, nesta ordem
 
 | Campo | Fonte / regra |
 |--|--|
-| Logo | Sempre usar `![vint-marca-2.png](/.attachments/vint-marca-2-7a1ab209-8590-460b-9e0f-43a4242ae6f2.png =200x60)` |
+| Logo | Valor de `azure.wikiLogo` do `.hub-projeto.json` (Markdown da imagem já anexada na wiki). Se vazio, omitir a linha da logo |
 | Número do projeto | Nome do projeto Azure DevOps (`azure.projeto` do `.hub-projeto.json`) |
 | Cliente | Nome do cliente do projeto; senão `VINT GLOBAL` se constar na wiki |
 | Versão | Versão da US/SPEC ou `1.0` se não houver |

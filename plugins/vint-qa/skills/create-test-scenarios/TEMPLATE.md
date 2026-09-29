@@ -10,7 +10,7 @@
 O arquivo `.md` de saída deve conter **cabeçalho wiki do projeto** + **um ou mais blocos de cenário** repetindo o padrão abaixo.
 
 ```markdown
-![vint-marca-2.png](/.attachments/vint-marca-2-7a1ab209-8590-460b-9e0f-43a4242ae6f2.png =200x60)
+{azure.wikiLogo}
 <table>
 <tr></th>
 <td><b>Número do projeto </b> {azure.projeto} </td>

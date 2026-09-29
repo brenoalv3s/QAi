@@ -87,7 +87,7 @@ Ler [TEMPLATE.md](TEMPLATE.md) e produzir o `.md` **seguindo a estrutura literal
 | Elemento | Padrão |
 |--|--|
 | Cabeçalho | Tabela **HTML** com `<b>Número do projeto</b>`, `<b>Cliente:</b>`, `<b>Versão:</b>`, `<b>Data:</b>` |
-| Logo | `![vint-marca-2.png](/.attachments/vint-marca-2-7a1ab209-8590-460b-9e0f-43a4242ae6f2.png =200x60)` |
+| Logo | `{azure.wikiLogo}` do `.hub-projeto.json` (omitir a linha se vazio) |
 | TOC | `[[_TOC_]]` após cabeçalho |
 | Seções | `# N. Título` + `---` (H1, não H2) |
 | Tabela de riscos | Separador GFM `\| --- \| --- \| --- \|`; negrito nas células permitido |
