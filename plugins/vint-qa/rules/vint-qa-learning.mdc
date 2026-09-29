@@ -1,0 +1,14 @@
+---
+description: Consultar e alimentar a base de conhecimento vint-qa (RAG) durante tarefas de QA — rag_search antes de automatizar, executar testes ou investigar falhas; rag_add_learning ao descobrir algo reutilizável
+alwaysApply: false
+---
+
+# Aprendizado contínuo (vint-qa-rag)
+
+Ao trabalhar em documentos de teste, cenários, testes manuais, automação ou reparo de testes:
+
+1. **Antes de agir:** `rag_search` (MCP `vint-qa-rag`) com a feature/tela e o tipo de tarefa. Reaproveitar locators, massa e armadilhas já registradas.
+2. **Ao descobrir algo reutilizável** (locator não trivial, regra implícita, instabilidade de ambiente, massa necessária, comportamento de API): `rag_add_learning` com título específico, categoria e "contexto / sintoma / como aplicar".
+3. **No relatório final** da tarefa, listar os aprendizados registrados.
+
+Nunca registrar senhas, tokens, PAT, dados pessoais ou massa real. Detalhes: `{VINT_QA_ROOT}/skills/vint-qa-rag/SKILL.md`.

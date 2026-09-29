@@ -1,0 +1,19 @@
+---
+description: Configuração de um projeto para a esteira vint-qa — doctor, .hub-projeto.json, .env, MCP da plataforma e scaffold Playwright/Robot
+alwaysApply: false
+---
+
+# Setup do projeto (vint-qa)
+
+Quando o usuário pedir para **preparar o projeto**, configurar o vint-qa, instalar Playwright/Robot ou deixar o repositório pronto para os agentes de QA, seguir `{VINT_QA_ROOT}/skills/setup-qa-project/SKILL.md` (ou delegar ao agente `setup-qa-project`).
+
+```bash
+node "$HOME/.vint-qa/vqa.mjs" doctor --install --json
+node "$HOME/.vint-qa/vqa.mjs" init --json
+node "$HOME/.vint-qa/vqa.mjs" validate --action {acao} --json
+node "$HOME/.vint-qa/vqa.mjs" sync-mcp --json
+```
+
+- Agentes, skills e rules vêm do plugin — nunca copiar para `.cursor/` do projeto
+- Nunca commitar `.env` nem `.cursor/mcp.json`
+- Nunca inventar URLs, credenciais ou tokens

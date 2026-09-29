@@ -1,0 +1,19 @@
+{
+  "name": "vint-qa-marketplace",
+  "owner": {
+    "name": "Vint Global — Squad QA"
+  },
+  "metadata": {
+    "description": "Plugins de QA da Vint Global para o Cursor (esteira de testes, automação Playwright/Robot, RAG).",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "vint-qa",
+      "source": "plugins/vint-qa",
+      "description": "Esteira de QA global: /vint-qa abre o menu (documento de teste, cenários, testes manuais, automação, sprint, RAG).",
+      "category": "testing",
+      "tags": ["qa", "testes", "playwright", "robot-framework", "azure-devops", "rag"]
+    }
+  ]
+}

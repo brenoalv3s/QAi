@@ -1,0 +1,13 @@
+{
+  "projeto": "site-institucional",
+  "email": "qa@empresa.com.br",
+  "plataforma": "gitlab",
+  "frameworkAutomacao": "playwright",
+  "prefixoTitulo": "Site",
+  "ambientePadrao": "hml",
+  "ambientes": {
+    "hml": { "url": "https://hml.site.empresa.com.br", "api": "" }
+  },
+  "gitlab": { "url": "https://gitlab.com", "projeto": "empresa/site-institucional" },
+  "requisitos": { "pastaLocal": "docs/requisitos" }
+}

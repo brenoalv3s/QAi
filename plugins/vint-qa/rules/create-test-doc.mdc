@@ -1,0 +1,67 @@
+---
+description: Regras para geração de Documento de Teste a partir da wiki Azure DevOps. Garante aderência ao padrão publicado em {azure.wikiDocumentosTeste} na wiki do projeto (`azure.wiki`).
+globs: docs/test-docs/**
+alwaysApply: false
+---
+
+# Documento de Teste — Padrão Obrigatório (Wiki Azure DevOps)
+
+Ao criar ou editar arquivos em `docs/test-docs/`, seguir rigidamente o template oficial.
+
+## Fonte de verdade do template
+
+1. **Wiki do projeto:** documentos em `{azure.wikiDocumentosTeste}` (ex.: DOC 37.1)
+2. **Markdown canônico:** `{VINT_QA_ROOT}/skills/create-test-doc/TEMPLATE.md`
+
+O agente **não pode** alterar a estrutura do template — apenas preencher conteúdo.
+
+## Estrutura fixa (4 seções)
+
+| # | Título exato | Formato |
+|--|--|--|
+| — | Logo + cabeçalho HTML + TOC + metadados | Logo do projeto (`azure.wikiLogo`, se configurado) + `<table>` HTML + `[[_TOC_]]` + **Funcionalidade** / **US de referência** / **Wiki (DOC)** |
+| 1 | `# 1. Análise de Escopo e Objetivos` + `---` | Objetivo em parágrafo; Em Escopo e Fora de Escopo (Limites do Teste) em listas `*   **[Tópico]:**` |
+| 2 | `# 2. Análise de Risco e Pontos de Atenção (QA)` + `---` | Tabela GFM 3 colunas, ≥ 2 linhas; impacto `[Alto]`/`[Médio]`/`[Baixo]`; mitigação `**Ação (QA):**` |
+| 3 | `# 3. Estratégia e Cobertura de Teste` + `---` | Abordagem Geral em parágrafo; Frentes de Cobertura com sub-listas; Casos de Teste (Azure DevOps) |
+| 4 | `# 4. Critérios de Aceite de QA (Definição de "Pronto")` + `---` | Checklist `*   [ ]`, ≥ 4 itens |
+
+**Não** incluir `# {Feature} — Documento de Teste` como título.
+
+## Coleta de conteúdo (wiki Azure DevOps)
+
+Antes de preencher, consultar via MCP `azure-devops` (MCP do projeto, gerado por `vqa sync-mcp`):
+
+```
+search_wiki → "{feature}"
+get_wiki_page → "{feature} SPEC" | US | RN | MSG | ALI
+```
+
+Priorizar informações da wiki sobre inferência. Lacunas devem ser marcadas explicitamente, não inventadas.
+
+## Saída
+
+- Caminho local: `docs/test-docs/{feature-slug}/documento-de-teste.md`
+- Formato: Markdown + HTML (cabeçalho) compatível com wiki Azure DevOps do projeto
+- Publicação wiki: `node "$HOME/.vint-qa/vqa.mjs" skills/create-test-doc/scripts/publish-test-doc.mjs` → `{azure.wikiDocumentosTeste}`
+
+## Formatação — padrão wiki do projeto
+
+| Elemento | Padrão |
+|--|--|
+| Cabeçalho | Tabela HTML com `<b>Número do projeto</b>`, `<b>Cliente:</b>`, `<b>Versão:</b>`, `<b>Data:</b>` |
+| Logo | `![vint-marca-2.png](/.attachments/vint-marca-2-7a1ab209-8590-460b-9e0f-43a4242ae6f2.png =200x60)` |
+| Seções | `# N. Título` (H1) + `---` |
+| Tabela de riscos | Separador GFM `\| --- \| --- \| --- \|`; negrito permitido nas células |
+| Em Escopo | `*   **[Tópico]:** descrição` |
+| Critérios | `*   [ ] critério` |
+
+## Proibições
+
+- Renomear, reordenar ou omitir seções do template
+- Usar `## 1.` (H2) em vez de `# 1.` (H1)
+- Incluir título `# {Feature} — Documento de Teste`
+- Trocar `Fora de Escopo (Limites do Teste):` por `Fora de Escopo:`
+- Usar `- [ ]` na seção 4 — usar `*   [ ]`
+- Omitir logo, tabela HTML, `[[_TOC_]]` ou separadores `---`
+- Incluir parágrafos de orientação (texto guia) no documento final
+- Publicar fora de `Documentos de Testes` ou sem metadados **Wiki (DOC)**

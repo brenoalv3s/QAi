@@ -1,0 +1,82 @@
+---
+description: Execução manual investigativa — QA sênior, Quality Gate, Bug Hunter, preparação de massa, evidências GIF no Test Plans e no card PBI, ADHOC, Mark Outcome, consentimento para bugs
+globs:
+alwaysApply: false
+---
+
+# Execute Manual Tests
+
+Fonte: `{VINT_QA_ROOT}/agents/execute-manual-tests.md` (investigador) e `execute-manual-tests-manual.md` (Test Plans pontual).
+
+## Ambiente
+
+`.env` na **raiz**: credenciais (`TEST_USER`, `TEST_PASSWORD`). Sem isso: perguntar. Não abrir o browser.
+
+**Modo manual:** AskQuestion **Em qual ambiente deseja executar os testes manuais?** — TST (Recomendado) / DEV / HML. Gravar URLs e executar só nesse ambiente. Se o prompt já trouxer `ambiente: DEV|TST|HML`, não perguntar de novo.
+
+**Modo automático:** URL do `.env` (`BASE_URL` / `SYSTEM_URL`). Não perguntar.
+
+## Origens
+
+Azure DevOps **ou** arquivo **ou** URL **ou** texto. Wiki quando houver feature Azure.
+
+## Velocidade + profundidade (SENIOR-QA)
+
+Detalhes: `{VINT_QA_ROOT}/skills/execute-manual-tests/SENIOR-QA.md`.
+
+- Missão: **provar que NÃO funciona** (com evidência) — não confirmar que “parece ok”.
+- Docs **1×** (MSG + US/RN/SPEC + DOC + cenários) → **Ficha de validação** → ordem **P0→P1→P2** → login **1×**.
+- Em MSG/MSA/MSC: esperado UI = **Descrição** do catálogo MSG (não o título `MSC_xx - …`); `<Registro>` / `registro(s)` → nome da feature + concordância; validar **sem** exigir maiúscula/minúscula.
+- Exploração ampla da tela **1× por rota**; depois foco no CN.
+- Frames: 2–5/CN. Transparência curta no chat.
+- Após ação crítica: **Bug Hunter** (`browser_console_messages` + `browser_network_requests`).
+- **Passed só com Quality Gate** (esperado + RN + msg + persistência + console + network + API se houver).
+
+## Postura crítica + massa (QA sênior)
+
+- Seguir CNs formais **e** analisar UI/UX, RN, erros silenciosos, segurança, network/console.
+- Antes de cada CN/ADHOC: anunciar (curto) o que está verificando e se vai **preparar massa**.
+- Se o CN exigir cadastrar / editar / buscar / excluir / visualizar / histórico / estado (ex. Autorizado) e a massa não existir → **criar/ajustar** e só então validar.
+- **Proibido** Failed/N/A só por “não tem massa” se ainda for possível criar/ajustar.
+- Risco importante fora do plano → **ADHOC-xx** (máx. 5/sessão), evidenciar e relatar; não criar Test Case Azure sem pedido.
+
+## Evidências
+
+UI: frames em `docs/test-evidence/{slug}/{cn}/frames/` → `make-evidence-gif.mjs` → **`fluxo.png`** (sempre) + **`fluxo.gif`** (se ffmpeg).  
+API: `api-response.json`.
+
+**A cada CN:** anexar no **Test Result do cenário (Test Plans — obrigatório)** **e** no card do PBI via:
+
+`record-test-result.mjs --pbi … --cn … --evidence …/fluxo.gif,…/fluxo.png`
+
+Passed/Failed com zero anexos no Test Plans → exit 2 (corrigir e reenviar).
+
+## Mark Outcome (na hora, por cenário)
+
+| Outcome | Critério |
+|---------|----------|
+| Passed | Docs tratam o cenário **e** Quality Gate completo — anexar `fluxo.gif` / JSON ao Test Plans **e** ao PBI |
+| Failed | Docs tratam e app/gate divergem **ou** finding técnico — anexar evidência; Bug no card após cadastro |
+| NotApplicable | **Nenhuma** doc (SPEC/US/RN/MSG/ALI/DOC) trata o cenário — comment obrigatório |
+
+Não usar N/A para ambiente fora, “sem massa”, bloqueio, tela que não abriu ou “ainda não desenvolvido” se a RN/US existir.
+
+Se existir PBI no board: `--pbi` + `--test-case-id` + `--cn` em `record-test-result.mjs`.
+
+## Bugs
+
+Formatar no template (`templates/Template Bug.md` / Template Bug.pdf). Incluir logs de console/network quando o finding for técnico.
+
+- **`execute-manual-tests`:** listar no chat e **perguntar** antes de `create-bug-from-failure.mjs`; no sim, passar `--test-case --run-id --result-id`
+- **`execute-manual-tests-manual`:** criar Bug no Azure após Failed (script), sem improvisar HTML, já vinculando ao card
+
+## Documentação
+
+- Skill: `{VINT_QA_ROOT}/skills/execute-manual-tests/SKILL.md`
+- QA sênior / massa / Gate / Bug Hunter: `{VINT_QA_ROOT}/skills/execute-manual-tests/SENIOR-QA.md`
+- Manual: `{VINT_QA_ROOT}/skills/execute-manual-tests/MANUAL.md`
+- Board: `{VINT_QA_ROOT}/skills/execute-manual-tests/BOARD.md`
+- Bug: `{VINT_QA_ROOT}/skills/execute-manual-tests/TEMPLATE-BUG.md`
+- API: `{VINT_QA_ROOT}/skills/execute-manual-tests/API-TESTING.md`
+- GIF: `{VINT_QA_ROOT}/skills/execute-manual-tests/scripts/make-evidence-gif.mjs`
+- Card: `{VINT_QA_ROOT}/skills/execute-manual-tests/scripts/attach-evidence-to-work-item.mjs`

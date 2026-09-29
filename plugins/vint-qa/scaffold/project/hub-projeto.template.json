@@ -1,0 +1,46 @@
+{
+  "projeto": "",
+  "email": "",
+  "plataforma": "",
+  "frameworkAutomacao": "",
+  "prefixoTitulo": "",
+  "ambientePadrao": "tst",
+  "ambientes": {
+    "dev": { "url": "", "api": "" },
+    "tst": { "url": "", "api": "" },
+    "hml": { "url": "", "api": "" }
+  },
+  "azure": {
+    "organizacao": "",
+    "projeto": "",
+    "wiki": "",
+    "wikiRaiz": "",
+    "wikiDocumentosTeste": "Squads/Testes & QA/Documentos de Testes",
+    "wikiLogo": "",
+    "iterationPath": "",
+    "modulosWiki": [],
+    "testPlans": {
+      "planos": [],
+      "aliasesSuites": []
+    },
+    "camposTestCase": {
+      "criticidade": "Custom.Criticidade",
+      "estrategia": "Custom.e3b1ecaf-933e-421c-9e1e-cfb8311b4b16",
+      "statusAutomacao": "Custom.757c52eb-8ac8-4e4d-985e-e662c5adc29b"
+    }
+  },
+  "gitlab": {
+    "url": "https://gitlab.com",
+    "projeto": ""
+  },
+  "github": {
+    "repositorio": ""
+  },
+  "jira": {
+    "site": "",
+    "projeto": ""
+  },
+  "requisitos": {
+    "pastaLocal": ""
+  }
+}

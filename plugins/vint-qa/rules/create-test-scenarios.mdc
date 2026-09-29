@@ -1,0 +1,86 @@
+---
+description: Regras para geração de Cenários de Teste e publicação no Azure Test Plans. Garante aderência ao template, métricas QA e cobertura de validação/borda.
+globs: docs/test-scenarios/**
+alwaysApply: false
+---
+
+# Cenários de Teste — Padrão Obrigatório + Test Plans
+
+Ao criar ou editar arquivos em `docs/test-scenarios/`, seguir rigidamente o template oficial e publicar no Azure Test Plans.
+
+## Fonte de verdade
+
+1. **PDF:** `Template Cenários de Teste.pdf`
+2. **Markdown:** `{VINT_QA_ROOT}/skills/create-test-scenarios/TEMPLATE.md`
+3. **Categorias / cobertura:** `{VINT_QA_ROOT}/skills/create-test-scenarios/CATEGORIES.md`
+4. **Métricas:** `{VINT_QA_ROOT}/skills/create-test-scenarios/METRICS.md`
+5. **Test Plans:** `{VINT_QA_ROOT}/skills/create-test-scenarios/TEST-PLAN.md`
+
+## Cobertura (não só happy path)
+
+Antes de gerar: inventariar SPEC (campos, maxlength, datas, upload MB/tipos).
+
+**Obrigatório quando a SPEC descreve:**
+
+| Elemento | Cenários mínimos |
+|----------|------------------|
+| Campo obrigatório | Vazio / omitido |
+| Limite de caracteres | No limite + acima do limite |
+| Data / período | Data inválida (+ início > fim se houver) |
+| Upload com limite (ex.: 25MB) | Arquivo **maior que o limite** (+ tipo inválido se doc) |
+| RN / MSA / permissão | 1 por item documentado |
+
+Não inventar o valor do limite se a wiki não informar — registrar lacuna.
+
+## Estrutura do documento
+
+| Parte | Formato |
+|--|--|
+| Cabeçalho | Logo + `<table>` HTML + `[[_TOC_]]` + metadados |
+| Cenário | `## [CN-{US}.{seq}] Func - Ação - Resultado` |
+| Steps | Gherkin PT: `*   **Dado/Quando/E/Então** ...` |
+| Métrica QA | Tabela com **Criticidade**, **Estratégia Técnica**, **Status da Automação** (obrigatórios) |
+| Separador | `---` entre cenários |
+
+## Métricas QA — obrigatórias
+
+Cenário **não pode** ser publicado no Test Plan sem as 3 métricas preenchidas e mapeadas:
+
+| Campo template | Campo Azure (`referenceName`) |
+|--|--|
+| Criticidade | `Custom.Criticidade` |
+| Estratégia Técnica | `Custom.e3b1ecaf-933e-421c-9e1e-cfb8311b4b16` |
+| Status da Automação | `Custom.757c52eb-8ac8-4e4d-985e-e662c5adc29b` |
+
+Valores permitidos: ver METRICS.md.
+
+## Publicação no Test Plans
+
+Após gerar o `.md`, executar:
+
+```bash
+node "$HOME/.vint-qa/vqa.mjs" skills/create-test-scenarios/scripts/publish-test-scenarios.mjs \
+  docs/test-scenarios/{feature-slug}/cenarios-de-teste.md
+```
+
+### Suites
+
+1. Localizar Test Plan e suite da feature
+2. Suite da feature **ausente** → criar sob suite pai
+3. Suite da feature **existente** → criar sub-suite `Cenários — Agent — {data}` para o lote
+4. Adicionar Test Cases na suite alvo; pular duplicatas por `[CN-xx]`
+
+## Saída
+
+- Markdown: `docs/test-scenarios/{feature-slug}/cenarios-de-teste.md`
+- Test Plan: work items `Test Case` na suite resolvida
+- Wiki de requisitos: **não** publicar automaticamente
+- Relatório: incluir contagem de validação/borda (caracteres, datas, upload)
+
+## Proibições
+
+- Entregar só caminho feliz quando a SPEC tem campos/limites/datas/upload
+- Inventar limites (MB, maxlength), RNs, mensagens ou critérios ausentes na wiki
+- Criar Test Case sem métricas QA completas
+- Publicar na wiki de requisitos sem revisão do QA
+- Confundir com Documento de Teste (`docs/test-docs/`)

@@ -1,0 +1,19 @@
+# Credenciais
+.cursor/mcp.json
+.cursor/qa-platform.json
+.env
+e2e/.env
+*.env.local
+
+# Dependências
+node_modules/
+e2e/node_modules/
+
+# Playwright
+e2e/test-results/
+e2e/playwright-report/
+e2e/blob-report/
+e2e/dist/
+
+.DS_Store
+Thumbs.db

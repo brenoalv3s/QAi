@@ -1,0 +1,100 @@
+---
+description: Arquitetura e limites do projeto e2e (Playwright/Robot). Define o que o agente pode e não pode fazer quando trabalha com automação de testes no projeto aberto.
+globs: e2e/**
+alwaysApply: false
+---
+
+# Projeto e2e — Arquitetura e Limites
+
+## O que é o projeto `e2e/`
+
+Suíte Playwright **isolada** da aplicação sob teste.
+
+**Guia passo a passo para QA:** [e2e/README.md](../e2e/README.md)
+
+## Onde cada artefato vive
+
+| Artefato | Caminho |
+|----------|---------|
+| Specs UI | `e2e/tests/{dominio}/ui/{operacao}.spec.ts` |
+| Specs API | `e2e/tests/{dominio}/api/{operacao}.spec.ts` |
+| Hub Playwright | `e2e/fixtures/main.ts` (UI) / `e2e/fixtures/api.ts` (API) |
+| Locators | `e2e/locators/{dominio}/listagem.locators.ts` |
+| Dados | `e2e/data/{dominio}.data.ts` |
+| Page Objects | `e2e/pages/{dominio}/listagem.page.ts`, `cadastro-drawer.page.ts` |
+| Fixtures | `e2e/fixtures/page-fixtures.ts` |
+| API Clients | `e2e/api/clients/{dominio}.client.ts` |
+| Hub Robot | `e2e/robot/resources/fixtures/main.resource` |
+| Testes Robot | `e2e/robot/tests/{dominio}/{operacao}.robot` |
+| Manifesto regressão | `docs/regression-automation/{dominio}/manifest.json` |
+| Wiki local (espelho) | `e2e/docs/wiki/` |
+| Documentos de teste | `docs/test-docs/{feature}/documento-de-teste.md` |
+| Cenários de teste | `docs/test-scenarios/{feature}/cenarios-de-teste.md` |
+| Config Playwright | `e2e/playwright.config.ts` |
+| Variáveis de ambiente | `.env` na **raiz do repositório** (URL/credenciais dos agentes); `e2e/.env` para o runner Playwright (nunca commitar) |
+
+## Organização dos specs
+
+```
+e2e/tests/{dominio}/
+├── ui/     cadastrar | editar | buscar | excluir | tela-inicial
+└── api/    mesma lógica por operação
+```
+
+**Separação:** specs = BDD (`dado`/`quando`/`entao`/`e`); locators em `locators/`; dados em `data/`; ações no POM; hub `fixtures/main.ts`. Robot: [e2e-robot-conventions.mdc](e2e-robot-conventions.mdc). Ver `e2e-spec-conventions.mdc`.
+
+## Proibições absolutas
+
+- **Nunca modificar** `src/`, `public/` ou arquivos fora de `e2e/` e `docs/regression-automation/` ao automatizar
+- **Nunca** `waitForTimeout` fixo nem `networkidle`
+- **Nunca** comitar `e2e/.env`
+
+## Pipeline QA (plugin vint-qa)
+
+```
+/vint-qa                          → preflight (instalações, .env, .hub-projeto.json) + menu clicável
+qa-sprint-orchestrator            → DOC + cenários (gates do board)
+qa-sprint-orchestrator-manual     → menu clicável (DOC / cenários / manuais / automação; não gera o que o usuário não pediu)
+  ├─ execute-manual-tests-manual  → testes manuais (mesma feature)
+  └─ generate-regression-automation-manual → **Automatizar a feature** (Playwright ou Robot; cria/reusa e2e; executa testes)
+execute-manual-tests              → execução manual + evidências + bugs (cron/board)
+generate-regression-automation    → Playwright regressivo (cron/board)
+```
+
+## Skills ativas
+
+| Skill | Uso |
+|-------|-----|
+| `/qa-sprint-orchestrator` | Pipeline DOC + cenários na sprint (automático) |
+| `qa-sprint-orchestrator-manual` | Esteira: menu clicável (DOC / cenários / manuais / automação) |
+| `/create-test-doc` | Documento de teste (wiki → .md) |
+| `/create-test-scenarios` | Cenários (wiki → Test Plans) |
+| `/execute-manual-tests` | Testes manuais no Test Plans (manual ou `--auto`) |
+| `execute-manual-tests-manual` | Testes manuais sob demanda (uma feature) |
+| `/generate-regression-automation` | Automação Playwright regressiva (manual ou `--auto`) |
+| `generate-regression-automation-manual` | Regressão Playwright sob demanda (uma feature) |
+| `/setup-qa-project` | Configurar projeto: `.hub-projeto.json`, `.env`, MCP, scaffold `e2e/` |
+| `/create-pom`, `/create-spec` | POMs e specs Playwright |
+| `/review-spec`, `/heal-test` | Auditoria e reparo de testes |
+| `/browser-mcp` | Descoberta de locators (Browser MCP) |
+| `/vint-qa-rag` | Base de conhecimento (RAG) e aprendizados do projeto |
+
+## Automações agendadas
+
+Modelos em `{VINT_QA_ROOT}/automations/`.
+
+| Prefill | Agente |
+|---------|--------|
+| `qa-sprint-orchestrator.prefill.json` | DOC + cenários (cron) |
+| `qa-sprint-orchestrator-manual.prefill.json` | Esteira sob demanda (menu: DOC / cenários / manuais / automação) |
+| `execute-manual-tests.prefill.json` | Testes manuais (cron) |
+| `generate-regression-automation.prefill.json` | Regressão Playwright (cron) |
+
+## Executar testes
+
+```bash
+cd e2e && npm test
+npx playwright test tests/{dominio}/
+node "$HOME/.vint-qa/vqa.mjs" rag index              # reindexar a base de conhecimento do projeto
+node "$HOME/.vint-qa/vqa.mjs" rag search "login"      # consultar (ou MCP vint-qa-rag → rag_search)
+```

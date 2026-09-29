@@ -1,0 +1,81 @@
+---
+description: Convenções obrigatórias para specs Playwright (.spec.ts). Specs puras BDD; locators, dados e expect só fora do spec; import só de fixtures/main.
+globs: e2e/tests/**/*.spec.ts
+alwaysApply: false
+---
+
+# Convenções de Spec — e2e Playwright
+
+Alinhado aos agentes `generate-regression-automation` e `generate-regression-automation-manual`.
+
+## Localização e imports
+
+Specs em `e2e/tests/{dominio}/ui/` ou `api/`. Import **somente** do hub:
+
+```typescript
+import { test, dado, quando, entao, e, titulo } from '../../../fixtures/main'
+
+test.describe('{PREFIXO} — {Dominio} (US — cadastrar)', () => {
+  test(titulo('CN-01', 'Validar cadastro com sucesso'), async ({ listagemPage, cadastroPage }) => {
+    await dado('que o usuário está na tela de listagem e clica em novo', async () => {
+      await listagemPage.dadoQueOUsuarioEstaNaTelaDeListagemEClicaEmNovo()
+    })
+    await quando('preenche os dados válidos e salva', async () => {
+      await cadastroPage.quandoPreencheOsDadosValidosESalva()
+    })
+    await entao('o sistema exibe mensagem de sucesso', async () => {
+      await cadastroPage.entaoOSistemaExibeMensagemDeSucesso()
+    })
+    await e('o registro aparece na grid', async () => {
+      await listagemPage.eORegistroApareceNaGrid()
+    })
+  })
+})
+```
+
+Specs API: `from '../../../fixtures/api'`.
+
+## Spec sem lógica
+
+**Proibido no `.spec.ts`:** `page.locator()`, `expect()`, `if/else`, `for`, `while`, `try/catch` de fluxo, `new Page`, literais de massa, `process.env`.
+
+| Proibido no spec | Onde implementar |
+|------------------|------------------|
+| `if` / `else` / `switch` | POM / keywords |
+| `for` / `while` | POM |
+| `page.locator` / `getByRole` | `locators/{dominio}/` |
+| `expect(...)` | POM (`validar*` / `assert*`) |
+| `E2E-QA-…` / URLs / senhas | `data/` |
+
+Atualizar `e2e/fixtures/page-fixtures.ts` e reexportar via `main.ts`.
+
+## Nomenclatura
+
+| Elemento | Padrão |
+|----------|--------|
+| Pasta | `tests/{dominio}/ui/` ou `api/` |
+| Arquivo | `{operacao}.spec.ts` |
+| `describe` | `{PREFIXO} — {Domínio} (US — {operação})` |
+| Passos | `dado` / `quando` / `entao` / `e` |
+| POM | `{Dominio}ListagemPage` / `{Dominio}CadastroPage` |
+| Hub | `fixtures/main.ts` |
+
+## Isolamento de dados
+
+Editar/excluir: o POM cria o registro (pré-condição). Spec não passa o nome. Nunca o 1º item de HML.
+
+Prefixo **`E2E-QA-`** em `data/env.ts`.
+
+| Operação | Estratégia |
+|----------|------------|
+| `editar` / `excluir` | Criar dado E2E no POM |
+| `cadastrar` | Prefixo `E2E-QA-` no data/POM |
+| `buscar` / `tela-inicial` | Pode ler HML (somente leitura) |
+
+## `test.skip` — sempre com mensagem
+
+```typescript
+test.skip(!process.env.TEST_USER, 'Requer TEST_USER no .env para autenticar')
+```
+
+Evitar `process.env` no corpo dos steps — skip no topo do arquivo é o único caso aceitável.

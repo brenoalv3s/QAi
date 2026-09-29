@@ -1,0 +1,7 @@
+*** Variables ***
+${BASE_URL}          %{BASE_URL}
+${TEST_USER}         %{TEST_USER}
+${TEST_PASSWORD}     %{TEST_PASSWORD}
+${PREFIXO_E2E}       E2E-QA-
+${VIEWPORT_LARGURA}  1440
+${VIEWPORT_ALTURA}   900

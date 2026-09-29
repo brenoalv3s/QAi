@@ -1,0 +1,38 @@
+---
+description: Pipeline automático de QA na sprint — gates do board, create-test-doc e create-test-scenarios
+globs:
+alwaysApply: false
+---
+
+# QA Sprint Orchestrator
+
+Orquestra `create-test-doc` → `create-test-scenarios` quando gates do board estão satisfeitos.
+
+> **Sob demanda (feature ou URL da wiki):** usar `@qa-sprint-orchestrator-manual` — rule `qa-sprint-orchestrator-manual.mdc` e [MANUAL.md](../skills/qa-sprint-orchestrator/MANUAL.md). **Não** aplicar os gates abaixo.
+
+## Gates de execução
+
+| Card | Condição | Comportamento |
+|--|--|--|
+| Documentos de Testes | In Progress (obrigatório) | Não em progresso → ignorar PBI |
+| Requisitos | Done **se existir** | Encontrado e não-Done → hard-block |
+| UX / UI | Done **se existir** | Encontrado e não-Done → hard-block |
+| Requisitos | **Ausente** no PBI | Perguntar ao usuário se deseja continuar |
+| UX / UI | **Ausente** no PBI | Perguntar ao usuário se deseja continuar |
+
+> **Regra:** só bloquear quando o card existir e não estiver Done. Quando o card simplesmente não existir no PBI, perguntar ao usuário antes de prosseguir.
+
+## Invocação
+
+- Skill: `/qa-sprint-orchestrator --auto` (ou sem feature)
+- Agente: `qa-sprint-orchestrator`
+- Descoberta: `node "$HOME/.vint-qa/vqa.mjs" skills/qa-sprint-orchestrator/scripts/discover-board-candidates.mjs --json`
+- Feature ou URL informada → **redirecionar** para `qa-sprint-orchestrator-manual`
+
+## Documentação
+
+- Skill: `{VINT_QA_ROOT}/skills/qa-sprint-orchestrator/SKILL.md`
+- Board: `{VINT_QA_ROOT}/skills/qa-sprint-orchestrator/BOARD.md`
+- Manual: `{VINT_QA_ROOT}/skills/qa-sprint-orchestrator/MANUAL.md`
+- Agente automático: `{VINT_QA_ROOT}/agents/qa-sprint-orchestrator.md`
+- Agente sob demanda: `{VINT_QA_ROOT}/agents/qa-sprint-orchestrator-manual.md`

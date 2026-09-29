@@ -1,0 +1,43 @@
+---
+description: Convenções Robot Framework — suíte BDD, main.resource como hub, locators e variáveis fora do arquivo de teste.
+globs: e2e/robot/**/*.{robot,resource}
+alwaysApply: false
+---
+
+# Convenções Robot — e2e/robot
+
+Alinhado a [ROBOT.md](../skills/generate-regression-automation/ROBOT.md).
+
+## Hub
+
+`tests/{dominio}/{operacao}.robot` importa **somente**:
+
+```
+Resource         ../../resources/fixtures/main.resource
+```
+
+`main.resource` concentra Library, variables, locators (web) e keywords. Domínio novo → Resource novo **na main**.
+
+## Teste = só BDD
+
+```
+*** Test Cases ***
+Buscar convênio existente retorna resultado e aviso de cobertura
+    [Documentation]    …
+    [Tags]             convenios    pesquisa    smoke
+    Dado que usuário acessa página de convênios
+    Quando digita nome de convênio na barra de pesquisa (ex: Bradesco Saude)
+    Então a busca deve retornar o convênio pesquisado
+    E deve ser possível visualizar mensagem "1 resultado encontrado"
+```
+
+## Proibido no `.robot` de teste
+
+IF/ELSE, locators, `*** Variables ***`, Fill/Click, literais de massa.
+
+| Artefato | Onde |
+|----------|------|
+| Seletores (web) | `resources/locators/{dominio}/` |
+| Variáveis / massa | `resources/variables/` |
+| Keywords BDD | `resources/keywords/{dominio}/` |
+| Setup / screenshot / browser | `resources/keywords/setup.resource` |

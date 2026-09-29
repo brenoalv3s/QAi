@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "vint-qa-rag": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${CURSOR_PLUGIN_ROOT}/rag/server.mjs"],
+      "env": { "VINT_QA_PROJECT_DIR": "${workspaceFolder}" }
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
+    },
+    "robotmcp": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["--from", "rf-mcp", "robotmcp"]
+    }
+  }
+}

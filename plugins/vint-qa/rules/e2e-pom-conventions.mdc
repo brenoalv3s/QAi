@@ -1,0 +1,113 @@
+---
+description: Convenções obrigatórias para Page Objects (.page.ts) do projeto e2e. BasePage, prefixos de método, hierarquia de locators, sem expect fora de assert*.
+globs: e2e/pages/**/*.ts
+alwaysApply: false
+---
+
+# Convenções de Page Object — e2e Playwright
+
+Locators **não** ficam no POM como literais soltos no construtor: extraia para `e2e/locators/{dominio}/*.locators.ts`. Massa em `e2e/data/`. Specs não acessam locators.
+
+## Esqueleto obrigatório
+
+```typescript
+import { expect, type Page } from '@playwright/test'
+import { BasePage } from '../base.page'
+import { listagemLocators } from '../../locators/{dominio}/listagem.locators'
+
+export class {Feature}ListagemPage extends BasePage {
+  private readonly locators
+
+  constructor(page: Page) {
+    super(page)
+    this.locators = listagemLocators(page)
+  }
+}
+```
+
+## Prefixos de método — seguir sem exceção
+
+| Prefixo | Papel |
+|---------|-------|
+| `assert*` / `validar*` | Único lugar com `expect(...)` — nunca nas specs |
+| `executar*` / `clicar*` / `preencher*` / `salvar*` / `navegar*` | Ações e fluxos |
+| `abrir*` | Abrir modal / drawer / navegar |
+| `acionar*` | Clicar em botão / ação |
+| `aguardar*` | Wait sem assert |
+| `selecionar*` | Combobox / select |
+| `obter*` / `ler*` | Ler estado para retornar à spec |
+
+## Hierarquia de locators
+
+```typescript
+// 1ª opção — role semântico
+page.getByRole('button', { name: /Salvar/i })
+
+// 2ª opção — label
+page.getByLabel(/e-mail/i)
+
+// 3ª opção — .or() com fallback
+page.getByRole('textbox', { name: /Nome/i }).or(page.getByLabel(/nome completo/i))
+
+// 4ª opção — data-testid
+page.getByTestId('campo-cpf')
+
+// Último recurso — CSS
+page.locator('.toast-error')
+```
+
+**Regras:**
+- Sempre `.first()` em locators com `.or()` antes de `.click()` ou `expect`
+- Nomes com regex `/…/i` para resiliência a capitalização
+- Locators: preferir `private`. Specs não acessam locators — só métodos públicos da fixture.
+
+## Waits — nunca fixos
+
+```typescript
+// ✅ CORRETO
+await this.page.getByText(/carregando/i).waitFor({ state: 'hidden', timeout: 20_000 }).catch(() => {})
+
+// ❌ ERRADO
+await this.page.waitForTimeout(3000)
+```
+
+## Padrão de pré-condição para editar e excluir
+
+Métodos `executarPreCondicao*` devem:
+1. Criar o registro via API (`executarCriar*E2E`) com nome iniciando em `E2E-QA-`
+2. Navegar para a listagem (`abrir()`)
+3. Buscar o registro pelo nome criado
+4. Aguardar o botão de ação ficar habilitado (`expect(...).toPass`)
+5. Retornar os dados do registro criado para uso nos steps seguintes
+
+```typescript
+async executarPreCondicaoClienteParaEdicao(sufixo: string): Promise<ClienteLinha> {
+  const client = new ClientesApiClient(this.page.request)
+  await client.login()
+  const criado = await client.executarCriarClienteE2E(`editar-${sufixo}`)
+  await this.abrir()
+  await this.executarBuscaPorNome(criado.nome)
+  await expect(async () => {
+    const linha = this.tabela().getByRole('row').filter({ hasText: criado.nome })
+    await expect(linha.first()).toBeVisible()
+    await expect(linha.getByRole('button', { name: /^Editar$/i }).first()).toBeEnabled()
+  }).toPass({ timeout: 30_000 })
+  await this.executarAbrirEditarPorNome(criado.nome)
+  return { nome: criado.nome, email: criado.email, id: criado.id }
+}
+```
+
+**Nunca usar `obterPrimeiro*DaLista()` em specs de editar ou excluir** — sempre criar dado próprio via precondição.
+
+## Assert com fallback estrutural (toast efêmero)
+
+```typescript
+async assertSucesso(): Promise<void> {
+  const toast = this.page.getByText(/sucesso|salvo|cadastrado/i)
+  try {
+    await expect(toast.first()).toBeVisible({ timeout: 10_000 })
+  } catch {
+    await expect(this.modal.first()).toBeHidden({ timeout: 20_000 })
+  }
+}
+```

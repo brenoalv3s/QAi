@@ -1,0 +1,9 @@
+node_modules/
+.env
+*.env.local
+.vint-qa/
+**/.cursor/mcp.json
+tools/fixtures/**/.vint-qa/
+*.log
+.DS_Store
+Thumbs.db

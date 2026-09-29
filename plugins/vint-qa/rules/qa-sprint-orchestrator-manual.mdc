@@ -1,0 +1,60 @@
+---
+description: Esteira QA sob demanda — menu clicável (DOC, cenários, manuais, automação); não gera DOC/cenários sem o usuário pedir
+globs:
+alwaysApply: false
+---
+
+# QA Sprint Orchestrator — Manual (esteira)
+
+Orquestra a esteira na mesma feature. **Não** gera documento nem cenários a menos que o usuário escolha no menu (eles podem já existir).
+
+Guia: `{VINT_QA_ROOT}/skills/qa-sprint-orchestrator/PIPELINE.md`
+
+## Diferença do modo automático
+
+| | Automático (`qa-sprint-orchestrator`) | Manual (este modo) |
+|--|--|--|
+| Entrada | Card Documentos de Testes In Progress | Nome da feature, URL wiki, nome do PBI ou ID |
+| Gates Requisitos / UX | Obrigatórios (Done se existirem) | **Não aplica** |
+| Descoberta no board | `discover-board-candidates.mjs` | Não (salvo `--validate-gates`) |
+| `mark-processed.mjs` | Sempre após sucesso | Só com `--mark-processed` |
+| Menu após Azure | Não (cron) | **Obrigatório no início** — DOC / cenários / manuais / automatizar / encerrar |
+
+## Invocação
+
+```
+@qa-sprint-orchestrator-manual {feature}
+@qa-sprint-orchestrator-manual {nome-do-pbi}
+@qa-sprint-orchestrator-manual {id-do-pbi}
+@qa-sprint-orchestrator-manual {url-da-wiki}
+/qa-sprint-orchestrator {feature}
+```
+
+## Fluxo
+
+0. MCP: `preflight-mcp.mjs` — Playwright + Robot; se `ask-platform`, perguntar a ferramenta (Azure/GitHub/GitLab/Jira/Linear/local/outra) e gravar com `write-mcp.mjs --platform`
+1. Resolver feature (nome, URL wiki, **nome do PBI** ou **ID** via `resolve-pbi.mjs`)
+2. AskQuestion **O que você deseja executar?** — DOC+cenários | só DOC | só cenários | testes manuais | automatizar | encerrar (`inspect-feature-artifacts.mjs`)
+3. Executar **somente** a escolha. Wiki SPEC/US só se for gerar DOC/cenários. `.env` só se for manuais/automação. Testes manuais: AskQuestion do ambiente (DEV/TST/HML) antes de delegar.
+4. Após a ação (exceto Encerrar): o **mesmo** menu de novo
+
+## Skills canônicas
+
+| Artefato | Caminho |
+|--|--|
+| Agente | `{VINT_QA_ROOT}/agents/qa-sprint-orchestrator-manual.md` |
+| Esteira | `{VINT_QA_ROOT}/skills/qa-sprint-orchestrator/PIPELINE.md` |
+| Skill DOC | `{VINT_QA_ROOT}/skills/create-test-doc/` |
+| Skill cenários | `{VINT_QA_ROOT}/skills/create-test-scenarios/` |
+| Prefill | `{VINT_QA_ROOT}/automations/qa-sprint-orchestrator-manual.prefill.json` |
+| Menu | `/vint-qa` (`{VINT_QA_ROOT}/commands/vint-qa.md`) |
+
+## Proibições
+
+- Exigir gates do board no modo manual
+- Gerar DOC ou cenários sem o usuário ter escolhido no menu (ou pedido na mensagem)
+- Encerrar após uma ação sem mostrar o menu de novo (exceto Encerrar)
+- Inventar valores de `.env` — pedir ao usuário e usar `write-env.mjs`
+- Forçar Playwright em projeto que já é só Robot
+- Inventar RNs / mensagens ausentes na wiki
+- Modificar `src/` ou `e2e/tests/` (exceto bootstrap/`e2e/.env`)

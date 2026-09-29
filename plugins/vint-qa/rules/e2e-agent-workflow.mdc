@@ -1,0 +1,76 @@
+---
+description: Workflow obrigatório para agentes que criam ou modificam testes no projeto e2e. Define a ordem de consulta de fontes antes de escrever qualquer código.
+globs: e2e/**
+alwaysApply: false
+---
+
+# Workflow do Agente — e2e Playwright
+
+Guia para QA humano: [e2e/README.md](../../e2e/README.md)
+
+Antes de escrever código de teste, seguir esta ordem:
+
+## Passo 0 — Ambiente
+
+Ler **`.env` na raiz do repositório** (`BASE_URL` / `SYSTEM_URL`, credenciais). Sem URL: perguntar (manual) ou abortar (background).
+
+## Passo 1 — Wiki e Test Plans (somente leitura)
+
+MCP `azure-devops`: `search_wiki`, `get_wiki_page` — SPEC, US, RN, MSG, ALI.
+
+Arquivos locais: `docs/test-scenarios/`, `docs/test-docs/`, `e2e/docs/wiki/` (se existir).
+
+Extrair: critérios C.x, RN_xx, MSA_xx / MSC_xx, campos e validações.
+
+## Passo 2 — RAG local (opcional)
+
+```
+e2e_search "{dominio}"
+e2e_find_tests
+e2e_get_domain_patterns
+```
+
+## Passo 3 — Frontend da aplicação (somente leitura)
+
+Se o workspace tiver `src/` (repositório da aplicação):
+
+- Componentes em `src/View/Pages/`
+- Schemas Zod em `src/Application/Schemas/`
+- Hooks de API em `src/Application/API/`
+- Rotas em `src/View/Routes/navigationRoutes.tsx`
+
+Se **não** houver `src/` neste repo, usar wiki + browser MCP como fonte principal.
+
+## Passo 4 — Browser MCP
+
+Navegar na aplicação HML, snapshot de acessibilidade, validar locators reais.
+
+## Passo 5 — Implementar (ordem obrigatória)
+
+1. **Locators** — `locators/{dominio}/*.locators.ts`
+2. **Data** — `data/{dominio}.data.ts` (prefixo `E2E-QA-`)
+3. **Client API** (se necessário) — `api/clients/{dominio}.client.ts`
+4. **POM** (`/create-pom`) — `pages/{dominio}/listagem.page.ts`, `cadastro-drawer.page.ts`, `index.ts`
+5. **Spec** (`/create-spec`) — `tests/{dominio}/ui|api/{operacao}.spec.ts` só BDD; import de `fixtures/main`
+6. Injetar páginas em `e2e/fixtures/page-fixtures.ts` (reexport em `main.ts`)
+7. `e2e_rebuild_index` após alterações relevantes
+
+### Onde colocar cada artefato
+
+| Artefato | Caminho |
+|----------|---------|
+| Spec UI | `tests/{dominio}/ui/{operacao}.spec.ts` |
+| Spec API | `tests/{dominio}/api/{operacao}.spec.ts` |
+| Hub | `fixtures/main.ts` (UI) / `fixtures/api.ts` (API) |
+| Locators | `locators/{dominio}/` |
+| Dados | `data/{dominio}.data.ts` |
+| POM listagem | `pages/{dominio}/listagem.page.ts` |
+| POM cadastro | `pages/{dominio}/cadastro-drawer.page.ts` |
+| Import POM | fixture `page-fixtures.ts` (não instanciar `new Page` na spec) |
+
+## Proibições
+
+- **Jamais modificar** arquivos fora de `e2e/` e `docs/regression-automation/`
+- Bugs no produto: evidência no relatório, não alterar `src/`
+- Dependências apenas em `e2e/package.json`
+- **Nunca** `expect` nem locators no spec — só BDD chamando a fixture, sem literais de massa

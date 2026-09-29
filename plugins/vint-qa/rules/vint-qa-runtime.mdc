@@ -1,0 +1,33 @@
+---
+description: Como localizar o plugin vint-qa ({VINT_QA_ROOT}), usar o launcher vqa e ler a configuração do projeto (.hub-projeto.json + .env). Ler antes de rodar qualquer script dos agentes vint-qa.
+alwaysApply: false
+---
+
+# Runtime do plugin vint-qa
+
+| Item | Onde |
+|------|------|
+| `{VINT_QA_ROOT}` | Pasta do plugin instalado. Obter com `node "$HOME/.vint-qa/vqa.mjs" --root` |
+| Launcher | `~/.vint-qa/vqa.mjs` (instalado pelo hook `sessionStart` do plugin) |
+| Scripts das skills | `node "$HOME/.vint-qa/vqa.mjs" skills/{skill}/scripts/{script}.mjs ...` |
+| Configuração não secreta | `.hub-projeto.json` na raiz do projeto |
+| URLs e segredos | `.env` na raiz do projeto (nunca commitar, nunca imprimir valores) |
+| Aprendizados do projeto | `.vint-qa/learnings/*.md` |
+
+O launcher roda os scripts com o diretório atual na **raiz do projeto** (onde está o `.hub-projeto.json`), então caminhos como `docs/...` e `e2e/...` são relativos ao projeto.
+
+## Se o launcher não existir
+
+1. Localizar o plugin: procurar `plugin.json` com `"name": "vint-qa"` em `~/.cursor/plugins/local/` e `~/.cursor/plugins/cache/` (pasta `.cursor-plugin/`; a raiz do plugin é a pasta acima dela).
+2. Rodar `node "{raiz}/runtime/install-launcher.mjs"`.
+3. Confirmar com `node "$HOME/.vint-qa/vqa.mjs" --version`.
+
+## Comandos úteis
+
+```bash
+node "$HOME/.vint-qa/vqa.mjs" startup --json            # doctor + init + validate (usado pelo /vint-qa)
+node "$HOME/.vint-qa/vqa.mjs" validate --action manual --json
+node "$HOME/.vint-qa/vqa.mjs" set hub.ambientePadrao=tst env.TEST_USER=...
+node "$HOME/.vint-qa/vqa.mjs" sync-mcp --json
+node "$HOME/.vint-qa/vqa.mjs" rag search "texto"
+```
