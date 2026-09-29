@@ -78,6 +78,7 @@ console.log(
         installed: (doctor?.install?.actions || []).filter((a) => a.ok).map((a) => a.tool),
         failed: (doctor?.install?.actions || []).filter((a) => !a.ok).map((a) => ({ tool: a.tool, how: a.how, error: a.error })),
         manual: doctor?.manual || [],
+        reloadMcp: doctor?.reloadMcp || [],
         error: doctor?.error || null,
       },
       files: { hub: init?.hub, env: init?.env, gitignore: init?.gitignore },

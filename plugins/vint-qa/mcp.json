@@ -13,8 +13,8 @@
     },
     "robotmcp": {
       "type": "stdio",
-      "command": "uvx",
-      "args": ["--from", "rf-mcp", "robotmcp"]
+      "command": "node",
+      "args": ["${CURSOR_PLUGIN_ROOT}/runtime/mcp-robot.mjs"]
     }
   }
 }

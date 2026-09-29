@@ -59,7 +59,9 @@ O `startup` verifica e instala o que falta (Node, npm, git, Python, uv, Chromium
 | `restart-cursor` | Algo foi instalado e precisa entrar no PATH: pedir para reiniciar o Cursor e rodar `/vint-qa` de novo. Parar |
 | `fix-hub-json` | `.hub-projeto.json` está com JSON inválido: mostrar o erro e oferecer corrigir o arquivo (ler, consertar a sintaxe preservando os valores) |
 
-`doctor.missingRecommended` (Python, uv, Chromium, ffmpeg) não bloqueia o menu: mencionar numa linha só o que cada um afeta (ex.: sem ffmpeg não há GIF de evidência; sem uv não há MCP Robot).
+`doctor.missingRecommended` (Python, uv, Chromium, ffmpeg) não bloqueia o menu: mencionar numa linha só o que cada um afeta (ex.: sem ffmpeg não há GIF de evidência; sem uv o MCP `robotmcp` fica só com a tool `robotmcp_status`).
+
+`doctor.reloadMcp` não vazio (ex.: `["robotmcp"]`): avisar numa linha que o uv foi instalado e que, para usar o MCP do Robot, basta desligar e ligar o `robotmcp` em Customize → vint-qa → MCPs. Não bloqueia o menu.
 
 Se `files.hub` ou `files.env` for `created`: avisar numa linha que os arquivos foram criados e que os dados serão pedidos quando uma ação precisar deles.
 

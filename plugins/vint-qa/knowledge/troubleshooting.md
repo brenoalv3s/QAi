@@ -22,7 +22,13 @@
 
 ## MCP playwright / robotmcp / vint-qa-rag não aparecem
 
-**Como resolver:** Cursor Settings → MCP → conferir se os servidores do plugin vint-qa estão habilitados; recarregar. `robotmcp` depende de `uvx` (instalar `uv`: `vqa doctor --install --force`). `playwright` depende de `npx`.
+**Como resolver:** Cursor Settings → MCP → conferir se os servidores do plugin vint-qa estão habilitados; recarregar. `playwright` depende de `npx`.
+
+## MCP robotmcp só mostra a tool `robotmcp_status`
+
+**Sintoma:** o `robotmcp` aparece conectado, mas com uma única tool, `robotmcp_status`.
+**Causa:** o plugin inicia o MCP por `runtime/mcp-robot.mjs`, que procura o `uvx` (PATH e pastas de instalação do winget, pip `--user` e instalador oficial) ou o pacote `rf-mcp` no Python. Sem nenhum dos dois, ele sobe um servidor reserva em vez de falhar.
+**Como resolver:** `node "$HOME/.vint-qa/vqa.mjs" doctor --install --force` (ou rodar `/vint-qa`) e depois desligar e ligar o `robotmcp` em Customize → vint-qa → MCPs. Sem permissão de instalação: `python -m pip install --user rf-mcp`. A tool `robotmcp_status` mostra o motivo exato.
 
 ## Chromium do Playwright ausente
 

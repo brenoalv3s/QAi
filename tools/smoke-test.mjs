@@ -126,7 +126,22 @@ check('MCP tools/list', byId[2]?.result?.tools?.length === 4);
 check('MCP rag_search', /learning/.test(byId[3]?.result?.content?.[0]?.text || ''), JSON.stringify(byId[3]));
 check('MCP não escreve lixo no stdout', replies.every((r) => r.jsonrpc === '2.0'));
 
-// 11. startup (sem instalar nada)
+// 11. MCP robotmcp numa máquina sem uv nem Python: sobe o servidor reserva em vez de falhar
+const robotMsgs = [msgs[0], { jsonrpc: '2.0', id: 2, method: 'tools/list' }, { jsonrpc: '2.0', id: 3, method: 'tools/call', params: { name: 'robotmcp_status', arguments: {} } }];
+const bare = { PATH: dirname(process.execPath), LOCALAPPDATA: HOME, APPDATA: HOME, UV_INSTALL_DIR: '' };
+const robot = node([join(PLUGIN, 'runtime', 'mcp-robot.mjs')], { input: robotMsgs.map((m) => JSON.stringify(m)).join('\n') + '\n', env: bare });
+let robotReplies = [];
+try {
+  robotReplies = robot.out.trim().split('\n').filter(Boolean).map((l) => JSON.parse(l));
+} catch {
+  /* inválido */
+}
+const robotById = Object.fromEntries(robotReplies.map((r) => [r.id, r]));
+check('MCP robotmcp sem uv responde initialize', Boolean(robotById[1]?.result?.serverInfo), robot.out + robot.err);
+check('MCP robotmcp sem uv expõe robotmcp_status', robotById[2]?.result?.tools?.[0]?.name === 'robotmcp_status');
+check('robotmcp_status explica como ativar', /doctor --install/.test(robotById[3]?.result?.content?.[0]?.text || ''));
+
+// 12. startup (sem instalar nada)
 const st = vqa('startup', '--json');
 check('startup devolve next', typeof st.json?.next === 'string', st.out + st.err);
 

@@ -14,6 +14,7 @@ import { homedir } from 'os';
 import { join } from 'path';
 import { USER_HOME_DIR, pluginVersion, readJson, writeJson } from './lib/project.mjs';
 import { IS_MAC, IS_WIN, majorOf, run, version } from './lib/sys.mjs';
+import { uvxVersion } from './lib/uv.mjs';
 
 const args = process.argv.slice(2);
 const JSON_ONLY = args.includes('--json');
@@ -91,7 +92,7 @@ function check() {
     npx: { required: true, version: version('npx'), get ok() { return Boolean(this.version); }, hint: 'Vem junto com o Node.js' },
     git: { required: true, version: version('git'), get ok() { return Boolean(this.version); }, hint: 'Git (https://git-scm.com)' },
     python: { required: false, version: py?.version || null, cmd: py?.cmd || null, ok: Boolean(py), hint: 'Python 3 — necessário para Robot Framework e MCP robotmcp' },
-    uv: { required: false, version: version('uvx', ['--version']) || version('uv'), get ok() { return Boolean(this.version); }, hint: 'uv/uvx — inicia o MCP robotmcp' },
+    uv: { required: false, version: uvxVersion(), get ok() { return Boolean(this.version); }, hint: 'uv/uvx — inicia o MCP robotmcp' },
     chromium: { required: false, version: null, ok: hasChromium(), path: playwrightBrowsersDir(), hint: 'Navegador do Playwright (npx playwright install chromium)' },
     ffmpeg: { required: false, version: version('ffmpeg', ['-version']), get ok() { return Boolean(this.version); }, hint: 'ffmpeg — gera o GIF das evidências de teste manual' },
   };
@@ -121,7 +122,15 @@ function install(tools) {
       const r = run(py.cmd, ['-m', 'pip', 'install', '--user', '--upgrade', 'uv'], { timeout: 600_000 });
       res = { ok: r.ok, how: `${py.cmd} -m pip install --user uv`, error: r.ok ? null : r.stderr.slice(-400) };
     }
-    actions.push({ tool: 'uv', ...res, restart: true });
+    if (!res.ok || !uvxVersion()) {
+      log('→ instalando uv pelo instalador oficial (astral.sh)...');
+      const r = IS_WIN
+        ? run('powershell', ['-NoProfile', '-ExecutionPolicy', 'ByPass', '-Command', 'irm https://astral.sh/uv/install.ps1 | iex'], { timeout: 600_000 })
+        : run('sh', ['-c', 'curl -LsSf https://astral.sh/uv/install.sh | sh'], { timeout: 600_000 });
+      const ok = r.ok && Boolean(uvxVersion());
+      res = { ok, how: 'instalador oficial do uv (astral.sh)', error: ok ? null : (r.stderr || r.stdout).slice(-400) || 'uvx não encontrado após a instalação' };
+    }
+    actions.push({ tool: 'uv', ...res, restart: false, reloadMcp: 'robotmcp' });
   }
 
   if (!tools.chromium.ok) {
@@ -172,6 +181,7 @@ function main() {
     ready: missingRequired.length === 0,
     install: installReport,
     needsRestart,
+    reloadMcp: [...new Set((installReport?.actions || []).filter((a) => a.ok && a.reloadMcp).map((a) => a.reloadMcp))],
     next: missingRequired.length
       ? 'ask-user-install'
       : needsRestart

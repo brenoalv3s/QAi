@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1
+
+- MCP `robotmcp` não falha mais quando o `uvx` não está no PATH: o plugin inicia por `runtime/mcp-robot.mjs`, que procura o `uvx` também nas pastas do winget, pip `--user` e instalador oficial, usa o `rf-mcp` do Python como alternativa e, sem nenhum dos dois, sobe um servidor reserva com a tool `robotmcp_status` explicando como ativar
+- `doctor` encontra o uv recém-instalado sem reiniciar o Cursor, tenta o instalador oficial do uv como última opção e informa `reloadMcp` quando basta religar o `robotmcp`
+
 ## 1.0.0
 
 Primeira versão do plugin.

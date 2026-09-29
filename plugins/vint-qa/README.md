@@ -78,4 +78,4 @@ O plugin não treina pesos de modelo. Os agentes melhoram por contexto versionad
 
 - O modelo do chat não pode ser forçado por um plugin: o `/vint-qa` confere se está no **Auto** e, se não estiver, pede para trocar antes de continuar.
 - Novas versões chegam ao time pelo Auto Refresh do marketplace (exige o GitHub App do Cursor no repositório); sem ele, é preciso clicar em Refresh no dashboard.
-- O MCP `robotmcp` depende do `uv`/`uvx`; o `/vint-qa` tenta instalar, mas em máquinas sem permissão de instalação pode ser preciso fazer manualmente.
+- O MCP `robotmcp` usa o `uv`/`uvx` (ou o pacote `rf-mcp` no Python). Enquanto nenhum dos dois existir, ele sobe com a tool `robotmcp_status` explicando o que falta, sem erro no Cursor; o `/vint-qa` instala o `uv` no preflight.

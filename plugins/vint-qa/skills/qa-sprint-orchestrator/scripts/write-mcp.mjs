@@ -20,6 +20,7 @@ import { fileURLToPath } from 'url';
 import { PLATFORMS, buildServer } from './lib/platforms.mjs';
 
 import { PROJECT_ROOT as ROOT, PLUGIN_ROOT } from '../../../runtime/lib/project.mjs';
+import { findUvx } from '../../../runtime/lib/uv.mjs';
 const KIT_TOOL_SERVERS = ['playwright', 'robotmcp'];
 
 function parseArgs(argv) {
@@ -75,20 +76,21 @@ function pythonBin() {
   return null;
 }
 
-function resolveRobotServer(exampleServer) {
-  if (commandOk('uvx')) {
-    return { type: 'stdio', command: 'uvx', args: ['--from', 'rf-mcp', 'robotmcp'] };
+function resolveRobotServer() {
+  const uvx = findUvx();
+  if (uvx) {
+    return { type: 'stdio', command: uvx, args: ['--from', 'rf-mcp', 'robotmcp'] };
   }
   const py = pythonBin();
   if (py) {
     const imported = run(py, ['-c', 'import robotmcp'], 20000);
     if (imported.status !== 0) {
       const inst = run(py, ['-m', 'pip', 'install', '-q', 'rf-mcp'], 180000);
-      if (inst.status !== 0) return JSON.parse(JSON.stringify(exampleServer));
+      if (inst.status !== 0) return null;
     }
     return { type: 'stdio', command: py, args: ['-m', 'robotmcp.server'] };
   }
-  return JSON.parse(JSON.stringify(exampleServer));
+  return null;
 }
 
 function mergeKitTools(mcpServers, example) {
@@ -99,8 +101,9 @@ function mergeKitTools(mcpServers, example) {
     if (!fromExample) continue;
     if (mcpServers[name]) continue;
     if (name === 'robotmcp' && mcpServers.robot) continue;
-    mcpServers[name] =
-      name === 'robotmcp' ? resolveRobotServer(fromExample) : JSON.parse(JSON.stringify(fromExample));
+    const server = name === 'robotmcp' ? resolveRobotServer() : JSON.parse(JSON.stringify(fromExample));
+    if (!server) continue;
+    mcpServers[name] = server;
     added.push(name);
   }
   return added;
