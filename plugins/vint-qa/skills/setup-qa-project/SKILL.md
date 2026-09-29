@@ -47,7 +47,7 @@ node "$HOME/.vint-qa/vqa.mjs" scaffold --framework playwright --install --json
 | `azure.iterationPath` | Raiz das sprints (pipeline do board) |
 | `gitlab.url`, `gitlab.projeto` / `github.repositorio` / `jira.site`, `jira.projeto` | Outras plataformas |
 
-Exemplo completo: `{VINT_QA_ROOT}/examples/hub-projeto.sgd.json`.
+Exemplo completo: `{VINT_QA_ROOT}/examples/hub-projeto.azure.json`.
 
 ## `.env` — chaves
 

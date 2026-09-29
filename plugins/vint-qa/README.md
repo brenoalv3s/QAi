@@ -39,7 +39,7 @@ Também dá para pedir direto: `/vint-qa testes manuais do Cadastro de Clientes`
 | `.cursor/mcp.json` | MCP da plataforma (gerado pelo plugin) | **Nunca** |
 | `.vint-qa/learnings/` | Aprendizados do projeto (RAG) | Sim |
 
-Exemplos: [`examples/hub-projeto.sgd.json`](examples/hub-projeto.sgd.json) (Azure DevOps completo) e [`examples/hub-projeto.gitlab-local.json`](examples/hub-projeto.gitlab-local.json).
+Exemplos: [`examples/hub-projeto.azure.json`](examples/hub-projeto.azure.json) (Azure DevOps completo) e [`examples/hub-projeto.gitlab-local.json`](examples/hub-projeto.gitlab-local.json).
 
 ## Componentes
 

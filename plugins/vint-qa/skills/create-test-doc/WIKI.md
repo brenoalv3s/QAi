@@ -26,7 +26,7 @@ Valores lidos do `.hub-projeto.json` do projeto aberto (nunca fixos no plugin). 
                 └── DOC {N}.{sub} - {Funcionalidade}
 ```
 
-### Exemplos (projeto de referência — `{VINT_QA_ROOT}/examples/hub-projeto.sgd.json`)
+### Exemplos
 
 | US | Caminho wiki |
 |--|--|

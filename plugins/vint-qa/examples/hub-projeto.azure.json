@@ -1,0 +1,52 @@
+{
+  "projeto": "portal-clientes",
+  "email": "qa@example.org",
+  "plataforma": "azure",
+  "frameworkAutomacao": "playwright",
+  "prefixoTitulo": "Portal",
+  "ambientePadrao": "tst",
+  "ambientes": {
+    "dev": { "url": "https://portal-dev.example.org", "api": "https://api-portal-dev.example.org" },
+    "tst": { "url": "https://portal-tst.example.org", "api": "https://api-portal-tst.example.org" },
+    "hml": { "url": "https://portal-hml.example.org", "api": "https://api-portal-hml.example.org" }
+  },
+  "azure": {
+    "organizacao": "minha-organizacao",
+    "projeto": "Portal de Clientes",
+    "wiki": "Portal-de-Clientes.wiki",
+    "wikiRaiz": "/Portal de Clientes",
+    "wikiDocumentosTeste": "Squads/Testes & QA/Documentos de Testes",
+    "wikiLogo": "![logo.png](/.attachments/logo-0000.png =200x60)",
+    "iterationPath": "Portal de Clientes",
+    "modulosWiki": [
+      { "usPrefix": "12.", "parentFolder": "DOC 11 - Relatórios", "docParentNum": "11" },
+      { "usPrefix": "05.", "parentFolder": "DOC 05 - Cadastro de Clientes", "docParentNum": "05" },
+      { "usPrefix": "5.", "parentFolder": "DOC 05 - Cadastro de Clientes", "docParentNum": "05" }
+    ],
+    "testPlans": {
+      "planos": [
+        { "usPrefix": "01.", "planName": "Home", "parentSuite": null },
+        { "usPrefix": "05.", "planName": "Clientes", "parentSuite": "Cadastro de Clientes" },
+        {
+          "usPrefix": "12.",
+          "planName": "Relatórios",
+          "parentSuite": "Central de Relatórios",
+          "keywords": ["relatorio", "exportar"]
+        }
+      ],
+      "aliasesSuites": [
+        { "keywords": ["relatorio de vendas", "vendas por periodo"], "suiteName": "Relatório de Vendas" },
+        { "keywords": ["editar cliente", "doc 05.2"], "suiteName": "Editar Cliente" }
+      ]
+    },
+    "camposTestCase": {
+      "criticidade": "Custom.Criticidade",
+      "estrategia": "Custom.EstrategiaTecnica",
+      "statusAutomacao": "Custom.StatusAutomacao"
+    }
+  },
+  "gitlab": { "url": "https://gitlab.com", "projeto": "" },
+  "github": { "repositorio": "" },
+  "jira": { "site": "", "projeto": "" },
+  "requisitos": { "pastaLocal": "" }
+}
