@@ -36,6 +36,7 @@ node "$HOME/.vint-qa/vqa.mjs" scaffold --framework playwright --install --json
 | Chave | Uso |
 |-------|-----|
 | `projeto`, `email` | Identificação (obrigatórios em todas as ações) |
+| `cliente` | Nome do cliente no cabeçalho do documento de teste e dos cenários (opcional) |
 | `plataforma` | `azure` \| `gitlab` \| `github` \| `jira` \| `linear` \| `local` \| `other` |
 | `frameworkAutomacao` | `playwright` \| `robot` |
 | `prefixoTitulo` | Prefixo do `describe` das specs (padrão: `projeto`) |
@@ -45,6 +46,7 @@ node "$HOME/.vint-qa/vqa.mjs" scaffold --framework playwright --install --json
 | `azure.wikiRaiz`, `azure.wikiDocumentosTeste`, `azure.wikiLogo`, `azure.modulosWiki` | Publicação do documento de teste |
 | `azure.testPlans.planos`, `azure.testPlans.aliasesSuites`, `azure.camposTestCase` | Publicação de cenários |
 | `azure.iterationPath` | Raiz das sprints (pipeline do board) |
+| `automacao.dominios` | Apelidos de domínio para agrupar a automação: `[{ "nome": "Pedidos", "keywords": ["pedido", "ordem de venda"] }]` (opcional) |
 | `gitlab.url`, `gitlab.projeto` / `github.repositorio` / `jira.site`, `jira.projeto` | Outras plataformas |
 
 Exemplo completo: `{VINT_QA_ROOT}/examples/hub-projeto.azure.json`.
@@ -52,8 +54,6 @@ Exemplo completo: `{VINT_QA_ROOT}/examples/hub-projeto.azure.json`.
 ## `.env` — chaves
 
 `BASE_URL`, `SYSTEM_URL`, `API_BASE_URL`, `TEST_USER`, `TEST_PASSWORD`, `TEST_USER_INACTIVE`, `TEST_PASSWORD_INACTIVE`, `TEST_USER_DELETED`, `TEST_PASSWORD_DELETED`, `AUTH_LOGIN_PATH`, `AUTH_BODY_FORMAT`, `AZURE_DEVOPS_PAT`, `GITLAB_PERSONAL_ACCESS_TOKEN`, `GITHUB_PERSONAL_ACCESS_TOKEN`.
-
-Nomes antigos `SGD_*` (ex.: `SGD_APP_URL`, `SGD_TEST_USER`) continuam aceitos pelos scripts.
 
 ## Regras
 

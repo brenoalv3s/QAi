@@ -3,7 +3,7 @@
  * Descobre PBIs elegíveis para o orquestrador QA (gates do board).
  * Uso:
  *   node discover-board-candidates.mjs
- *   node discover-board-candidates.mjs --work-item 25867
+ *   node discover-board-candidates.mjs --work-item 1240
  */
 import { readFileSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';

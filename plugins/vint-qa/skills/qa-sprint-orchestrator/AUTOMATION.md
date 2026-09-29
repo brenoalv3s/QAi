@@ -149,7 +149,7 @@ Para cada PBI elegível:
 node "$HOME/.vint-qa/vqa.mjs" skills/qa-sprint-orchestrator/scripts/discover-board-candidates.mjs
 
 # Validar um card específico
-node "$HOME/.vint-qa/vqa.mjs" skills/qa-sprint-orchestrator/scripts/discover-board-candidates.mjs --work-item 25867
+node "$HOME/.vint-qa/vqa.mjs" skills/qa-sprint-orchestrator/scripts/discover-board-candidates.mjs --work-item 1240
 
 # Executar pipeline manualmente
 /qa-sprint-orchestrator

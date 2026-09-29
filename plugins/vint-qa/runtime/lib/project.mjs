@@ -128,28 +128,11 @@ export function readProjectEnv() {
   };
 }
 
-const ENV_ALIASES = {
-  SGD_APP_URL: 'BASE_URL',
-  SGD_API_BASE_URL: 'API_BASE_URL',
-  SGD_TEST_USER: 'TEST_USER',
-  SGD_TEST_PASSWORD: 'TEST_PASSWORD',
-  SGD_AUTH_LOGIN_PATH: 'AUTH_LOGIN_PATH',
-  SGD_AUTH_BODY_FORMAT: 'AUTH_BODY_FORMAT',
-  SGD_AUTH_BODY: 'AUTH_BODY',
-  SGD_SWAGGER_URL: 'SWAGGER_URL',
-  SGD_OPENAPI_URL: 'OPENAPI_URL',
-  SGD_TOKEN_CACHE: 'TOKEN_CACHE',
-};
-
 /** Carrega o .env do projeto em process.env sem sobrescrever variáveis já definidas. */
 export function loadEnvIntoProcess() {
   const env = readProjectEnv();
   for (const [k, v] of Object.entries(env)) {
     if (process.env[k] == null || process.env[k] === '') process.env[k] = v;
-  }
-  for (const [legacy, modern] of Object.entries(ENV_ALIASES)) {
-    if (!process.env[modern] && process.env[legacy]) process.env[modern] = process.env[legacy];
-    if (!process.env[legacy] && process.env[modern]) process.env[legacy] = process.env[modern];
   }
   if (!process.env.BASE_URL && process.env.SYSTEM_URL) process.env.BASE_URL = process.env.SYSTEM_URL;
   if (!process.env.SYSTEM_URL && process.env.BASE_URL) process.env.SYSTEM_URL = process.env.BASE_URL;

@@ -25,10 +25,10 @@ Para execução **automática** (cron + gates do board), use o agente `qa-sprint
 ### Agente dedicado (foreground)
 
 ```
-@qa-sprint-orchestrator-manual Cadastro de Colaboradores
-@qa-sprint-orchestrator-manual PBI Cadastro de Colaboradores
-@qa-sprint-orchestrator-manual 25862
-@qa-sprint-orchestrator-manual https://dev.azure.com/.../_wiki/wikis/{azure.wiki}?pagePath=/.../Cadastro%20de%20Colaboradores%20US
+@qa-sprint-orchestrator-manual Cadastro de Produtos
+@qa-sprint-orchestrator-manual PBI Cadastro de Produtos
+@qa-sprint-orchestrator-manual 1234
+@qa-sprint-orchestrator-manual https://dev.azure.com/.../_wiki/wikis/{azure.wiki}?pagePath=/.../Cadastro%20de%20Produtos%20US
 ```
 
 Ou: *"Gere o documento de teste e os cenários da feature X / do PBI Y"* — nesse caso o menu inicial é pulado e a ação pedida roda na hora.
@@ -38,7 +38,7 @@ O agente **pergunta** feature, URL ou PBI se nada for informado. Depois mostra o
 ### Skill (mesmo fluxo)
 
 ```
-/qa-sprint-orchestrator Cadastro de Colaboradores
+/qa-sprint-orchestrator Cadastro de Produtos
 /qa-sprint-orchestrator {url-da-wiki}
 ```
 

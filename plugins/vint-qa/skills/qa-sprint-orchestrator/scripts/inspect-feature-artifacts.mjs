@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Indica se DOC e cenários locais já existem para a feature.
- *   node inspect-feature-artifacts.mjs --feature "Cadastro de Colaboradores" --json
+ *   node inspect-feature-artifacts.mjs --feature "Cadastro de Produtos" --json
  */
 import { existsSync } from 'fs';
 import { dirname, join, resolve } from 'path';

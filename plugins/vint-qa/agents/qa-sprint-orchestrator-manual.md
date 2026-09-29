@@ -78,7 +78,7 @@ Se `capabilities.testPlans` for false: **não** publicar no Azure Test Plans; ce
 | **Nome da feature** | Usar como `feature` nos passos seguintes. Ainda tentar localizar PBI (`resolve-pbi.mjs`) para guardar `pbiId` se houver match único. |
 | **URL da wiki** (requisito / US / SPEC / RN / página do módulo) | Resolver o nome da feature via MCP (ver abaixo) |
 | **Nome do PBI** / issue (título no board) | Só se `capabilities.workItems`. Azure → `resolve-pbi.mjs`. GitHub/GitLab/Jira/Linear → MCP da plataforma. |
-| **ID** (`25862`, `#25862`, `PROJ-12`) | Azure: work item. Outras: issue/ticket no MCP correspondente. |
+| **ID** (`1234`, `#1234`, `PROJ-12`) | Azure: work item. Outras: issue/ticket no MCP correspondente. |
 | Feature + URL | Preferir o nome explícito; usar a URL para localizar páginas relacionadas |
 | Não informado | **Perguntar** antes de continuar — aceitar feature, URL, nome do PBI ou ID |
 | `--validate-gates` (opcional) | Rodar `discover-board-candidates.mjs` e abortar se não elegível |
@@ -108,10 +108,10 @@ node "$HOME/.vint-qa/vqa.mjs" skills/qa-sprint-orchestrator/scripts/resolve-pbi.
 Exemplos:
 
 ```text
-@qa-sprint-orchestrator-manual Cadastro de Colaboradores
-@qa-sprint-orchestrator-manual PBI Cadastro de Colaboradores
-@qa-sprint-orchestrator-manual 25862
-@qa-sprint-orchestrator-manual #25862
+@qa-sprint-orchestrator-manual Cadastro de Produtos
+@qa-sprint-orchestrator-manual PBI Cadastro de Produtos
+@qa-sprint-orchestrator-manual 1234
+@qa-sprint-orchestrator-manual #1234
 ```
 
 ### Resolver URL da documentação → feature
@@ -128,8 +128,8 @@ Se `capabilities.wiki` e Azure: MCP Azure `get_wiki_page`:
 
 Exemplos de URL aceitas:
 
-- `.../_wiki/wikis/{azure.wiki}?pagePath=/.../Cadastro%20de%20Colaboradores%20US`
-- `.../_wiki/wikis/{azure.wiki}?wikiVersion=GBwikiMaster&pagePath=/Squads/...`
+- `.../_wiki/wikis/{azure.wiki}?pagePath=/.../Cadastro%20de%20Produtos%20US`
+- `.../_wiki/wikis/{azure.wiki}?wikiVersion=GBwikiMaster&pagePath=/Testes/...`
 
 ---
 

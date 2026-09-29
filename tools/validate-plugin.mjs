@@ -110,11 +110,8 @@ for (const entry of plugins) {
     if (/\.(md|mdc)$/.test(f) && /(^|[^{/\w])\.cursor\/(skills|rules|agents)\//m.test(text)) {
       err(`${r}: referência a .cursor/skills|rules|agents do projeto — use {VINT_QA_ROOT}/... ou "$HOME/.vint-qa/vqa.mjs"`);
     }
-    if (/\.mjs$/.test(f) && /'vintglobal'|SGD - Sistema Gest|sgd-(dev|tst|hml)\.vintglobal/.test(text)) {
-      err(`${r}: valor fixo de projeto em script — mova para .hub-projeto.json`);
-    }
-    if (/\b(sgd|api-sgd|site)-(dev|tst|hml)\.vintglobal\.com\.br/.test(text) && !r.includes('/examples/')) {
-      warn(`${r}: URL de ambiente de um projeto específico`);
+    if (/\bsgd\b|\bsgd[_.-]|vintglobal\.com\.br|site-vintglobal|dev\.azure\.com\/vintglobal/i.test(text)) {
+      err(`${r}: referência a um projeto específico (SGD / SITES) — o plugin deve servir a qualquer projeto`);
     }
     if (/\/\.attachments\/[\w-]+\.(png|jpe?g|svg|gif)/i.test(text) && !r.includes('/examples/')) {
       err(`${r}: imagem de wiki de um projeto específico — use {azure.wikiLogo}`);

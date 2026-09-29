@@ -1,4 +1,5 @@
 import { toSlug, toPascalCase } from './slug.mjs';
+import { readHub } from '../../../../runtime/lib/project.mjs';
 
 /** Arquivos de spec por operação (padrão do projeto e2e) */
 export const OPERATION_SPEC_FILES = {
@@ -85,97 +86,67 @@ export function classifySubGroup(title, operation, scenario = null) {
   return null;
 }
 
-function normalizeDomainFromFragment(fragment) {
-  const n = normalize(fragment);
-  if (/demanda/.test(n)) return 'Demandas';
-  if (/contrato/.test(n)) return 'Contratos';
-  if (/cliente/.test(n)) return 'Clientes';
-  if (/colaborador/.test(n)) return 'Colaboradores';
-  if (/alocac/.test(n)) return 'Alocações';
-  if (/reales|release/.test(n)) return 'Releases';
-  return String(fragment || '').trim();
+/**
+ * Apelidos de domínio do projeto: `.hub-projeto.json` → `automacao.dominios`
+ * = [{ "nome": "Pedidos", "keywords": ["pedido", "ordem de venda"] }].
+ */
+function domainAliases() {
+  const list = readHub()?.automacao?.dominios;
+  return Array.isArray(list) ? list.filter((d) => d && d.nome) : [];
 }
 
+function singular(text) {
+  return normalize(text).replace(/(oes|aes)$/, 'ao').replace(/(ns)$/, 'm').replace(/([^s])s$/, '$1');
+}
+
+function normalizeDomain(name, planName = '') {
+  const words = (t) => ` ${normalize(t).replace(/[^a-z0-9]+/g, ' ').trim()} `;
+  const n = words(name);
+  const alias = domainAliases().find((d) => (d.keywords || [d.nome]).some((k) => words(k).trim() && n.includes(words(k))));
+  if (alias) return alias.nome;
+  if (planName && singular(name) === singular(planName)) return planName;
+  return String(name || '').trim();
+}
+
+/** Títulos que descrevem só a ação/tela, sem o domínio. */
+const ACTION_ONLY = /^(busca(\s+avan[cç]ada)?|buscar|consulta|consultar|tela\s+inicial|listagem|visualizar|detalhes|hist[oó]rico(\s+de\s+altera[cç](ão|ões))?|filtros?(\s+avan[cç]ados?)?)$/i;
+
 /**
- * Extrai domínio (ex.: "Demandas") e operação a partir do título do PBI / suite.
- * Ex.: "Demandas - Cadastrar" → { domainName: "Demandas", operation: "cadastrar" }
- * Ex.: "Cadastrar Demandas" → { domainName: "Demandas", operation: "cadastrar" }
- * Ex.: "Exclusão de demanda" + planName "Demandas" → { domainName: "Demandas", operation: "excluir" }
- * Ex.: "Implementar filtro avançado na tela de Demandas" → { domainName: "Demandas", operation: "buscar" }
+ * Extrai domínio (ex.: "Pedidos") e operação a partir do título do PBI / suite.
+ * Ex.: "Pedidos - Cadastrar" → { domainName: "Pedidos", operation: "cadastrar" }
+ * Ex.: "Cadastrar Pedidos" → { domainName: "Pedidos", operation: "cadastrar" }
+ * Ex.: "Exclusão de pedido" + planName "Pedidos" → { domainName: "Pedidos", operation: "excluir" }
+ * Ex.: "Implementar filtro avançado na tela de Pedidos" → { domainName: "Pedidos", operation: "buscar" }
+ * Ex.: "Busca avançada" + planName "Pedidos" → { domainName: "Pedidos", operation: "buscar" }
  * @param {string} title
- * @param {{ planName?: string }} [options] — nome do Test Plan pai (ex.: "Demandas")
+ * @param {{ planName?: string }} [options] — nome do Test Plan pai (ex.: "Pedidos")
  */
 export function parseFeatureTitle(title, options = {}) {
   const sourceTitle = String(title || '').trim();
   const planName = String(options.planName || '').trim();
   let domainName = sourceTitle;
-  let actionPart = '';
+  let actionPart = sourceTitle;
 
-  const actionDomain = sourceTitle.match(/^(Cadastrar|Editar|Consultar|Buscar|Excluir)\s+(.+)$/i);
-  if (actionDomain) {
+  const actionDomain = sourceTitle.match(/^(Cadastrar|Editar|Consultar|Buscar|Excluir|Visualizar)\s+(.+)$/i);
+  const exclusion = sourceTitle.match(/^exclus[aã]o\s+de\s+(.+)$/i);
+  const dashSplit = sourceTitle.match(/^(.+?)\s*[-–—]\s*(.+)$/);
+
+  if (ACTION_ONLY.test(sourceTitle)) {
+    domainName = planName || sourceTitle;
+  } else if (actionDomain) {
     domainName = actionDomain[2].trim();
     actionPart = actionDomain[1].trim();
-  } else if (/^exclus[aã]o\s+de\s+/i.test(sourceTitle)) {
-    const frag = sourceTitle.replace(/^exclus[aã]o\s+de\s+/i, '').trim();
-    domainName = normalizeDomainFromFragment(frag) || planName || sourceTitle;
-    actionPart = sourceTitle;
-  } else if (/^busca\s+avan[cç]ada$/i.test(sourceTitle)) {
-    domainName = planName || 'Demandas';
-    actionPart = sourceTitle;
-  } else if (/^tela\s+inicial$/i.test(sourceTitle)) {
-    domainName = planName || sourceTitle;
-    actionPart = sourceTitle;
-  } else if (/^demandas$/i.test(sourceTitle)) {
-    domainName = 'Demandas';
-    actionPart = sourceTitle;
-  } else if (/^aloca[cç][õo]es$/i.test(sourceTitle)) {
-    domainName = 'Alocações';
-    actionPart = sourceTitle;
-  } else if (/^cadastrar aloca[cç][ãa]o$/i.test(sourceTitle)) {
-    domainName = 'Alocações';
-    actionPart = sourceTitle;
-  } else if (/^editar aloca[cç][ãa]o$/i.test(sourceTitle)) {
-    domainName = 'Alocações';
-    actionPart = sourceTitle;
-  } else if (/^excluir aloca[cç][ãa]o$/i.test(sourceTitle)) {
-    domainName = 'Alocações';
-    actionPart = sourceTitle;
-  } else if (/^realeses$/i.test(sourceTitle) || /^reales$/i.test(sourceTitle)) {
-    domainName = 'Releases';
-    actionPart = sourceTitle;
-  } else if (/^f[eé]rias$/i.test(sourceTitle) || /f[eé]rias/.test(normalize(sourceTitle))) {
-    domainName = 'Férias';
-    actionPart = sourceTitle;
-  } else if (/^cadastrar reales/i.test(sourceTitle)) {
-    domainName = 'Releases';
-    actionPart = sourceTitle;
-  } else if (/^editar reales/i.test(sourceTitle)) {
-    domainName = 'Releases';
-    actionPart = sourceTitle;
-  } else if (/^excluir reales/i.test(sourceTitle)) {
-    domainName = 'Releases';
-    actionPart = sourceTitle;
-  } else if (/historico.*release|release.*historico|obrigatoriedade.*observa|historico de alteracao/i.test(sourceTitle)) {
-    domainName = 'Releases';
-    actionPart = sourceTitle;
-  } else if (/^busca avan[cç]ada$/i.test(sourceTitle) && /reales/i.test(planName)) {
-    domainName = 'Releases';
-    actionPart = sourceTitle;
+  } else if (exclusion) {
+    domainName = exclusion[1].trim() || planName || sourceTitle;
+  } else if (dashSplit) {
+    domainName = dashSplit[1].trim();
+    actionPart = dashSplit[2].trim();
   } else {
-    const dashSplit = sourceTitle.match(/^(.+?)\s*[-–—]\s*(.+)$/);
-    if (dashSplit) {
-      domainName = dashSplit[1].trim();
-      actionPart = dashSplit[2].trim();
-    } else {
-      const fromTela = extractDomainFromTelaDe(sourceTitle);
-      if (fromTela) domainName = fromTela;
-      actionPart = sourceTitle;
-    }
+    domainName = extractDomainFromTelaDe(sourceTitle) || sourceTitle;
   }
 
+  domainName = normalizeDomain(domainName, planName);
   const operation = classifyOperation(actionPart || sourceTitle);
-  if (/alocac/.test(normalize(domainName))) domainName = 'Alocações';
-  if (/reales|release/.test(normalize(domainName))) domainName = 'Releases';
   const domainSlug = toSlug(domainName);
   const pascal = toPascalCase(domainSlug);
   const subGroup = classifySubGroup(sourceTitle, operation);

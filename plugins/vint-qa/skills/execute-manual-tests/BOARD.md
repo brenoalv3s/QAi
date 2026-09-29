@@ -34,8 +34,8 @@ Usuário informa o nome da feature — **não valida gates** (a menos que `--val
 Agente: `execute-manual-tests-manual` · Guia: [MANUAL.md](MANUAL.md)
 
 ```
-@execute-manual-tests-manual Gerar Relatório Carteira de Contratos
-/execute-manual-tests Gerar Relatório Carteira de Contratos --skip-board
+@execute-manual-tests-manual Gerar Relatório de Vendas
+/execute-manual-tests Gerar Relatório de Vendas --skip-board
 ```
 
 ## Idempotência

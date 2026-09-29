@@ -14,7 +14,7 @@ Diagnóstica e corrige testes Playwright que estão falhando sem perder a inten�
 ## Passo 0 — Identificar o teste alvo
 
 Perguntar ao usuário (ou inferir do contexto):
-- Nome do teste ou arquivo (ex.: `cadastro-colaborador.spec.ts`, `deve rejeitar CPF duplicado`)
+- Nome do teste ou arquivo (ex.: `cadastro-produto.spec.ts`, `deve rejeitar CPF duplicado`)
 - Caminho do relatório de falha, se disponível (`e2e/playwright-report/` ou `e2e/test-results/`)
 
 Se não houver arquivo específico: listar specs com `e2e_find_tests` e pedir seleção.
@@ -101,7 +101,7 @@ O elemento existe na UI atual?
 4. Apresentar o diff antes de aplicar:
 
 ```
-DRIFT detectado em: pages/cadastro-colaborador.page.ts
+DRIFT detectado em: pages/cadastro-produto.page.ts
 
 ANTES:
   this.btnSalvar = page.getByRole('button', { name: /Salvar/i })

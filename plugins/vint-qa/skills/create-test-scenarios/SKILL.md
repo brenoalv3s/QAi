@@ -19,7 +19,7 @@ Se já existir `docs/test-scenarios/{slug}/cenarios-de-teste.md`, **não** recri
 
 ## Passo 0 — Coletar a feature
 
-Obter o **nome da funcionalidade** (ex.: "Financeiro dos Contratos", "Cadastro de Colaboradores").
+Obter o **nome da funcionalidade** (ex.: "Estoque", "Cadastro de Produtos").
 
 Se não informado, perguntar antes de continuar.
 
@@ -37,7 +37,7 @@ node "$HOME/.vint-qa/vqa.mjs" skills/create-test-scenarios/scripts/analyze-exist
 | `create-new` | Criar `docs/test-scenarios/{slug}/cenarios-de-teste.md` do zero |
 | `append-gaps` | Preservar o arquivo; numerar a partir de `nextCnHint`; **append** só dos faltantes |
 
-Também procurar cenários já publicados na wiki de Testes & QA / Test Plans como referência de IDs — **não** duplicar o mesmo `[CN-xx]`.
+Também procurar cenários já publicados na wiki de testes / Test Plans como referência de IDs — **não** duplicar o mesmo `[CN-xx]`.
 
 **Proibido** sobrescrever o `.md` existente com um lote novo que apague CNs anteriores.
 
@@ -77,7 +77,7 @@ Consultar catálogo global quando necessário:
 
 Antes de escrever, mapear (detalhes em [CATEGORIES.md](CATEGORIES.md)):
 
-1. **US e sub-US** — número (ex.: US 38.2) → prefixo `CN-38.2.xx`
+1. **US e sub-US** — número (ex.: US 12.2) → prefixo `CN-12.2.xx`
 2. **Critérios C.x** — um cenário por critério quando testável
 3. **RN_xx** — um cenário por regra
 4. **Mensagens** — MSA_xx / MSC_xx com texto da wiki
@@ -132,7 +132,7 @@ Produzir o `.md` completo:
 | Status da Automação | Planejado (padrão) |
 ```
 
-**Numeração:** `CN-38.2.01`, `CN-38.2.02`, … sequencial por US. Em `append-gaps`, continuar de `nextCnHint`.
+**Numeração:** `CN-12.2.01`, `CN-12.2.02`, … sequencial por US. Em `append-gaps`, continuar de `nextCnHint`.
 
 **Título:** `[Identificador] Funcionalidade - Ação realizada - Resultado esperado`
 
@@ -155,7 +155,7 @@ Separar cada cenário com `---`.
 docs/test-scenarios/{feature-slug}/cenarios-de-teste.md
 ```
 
-`{feature-slug}` = kebab-case sem acentos (ex.: `financeiro-dos-contratos`).
+`{feature-slug}` = kebab-case sem acentos (ex.: `relatorio-de-estoque`).
 
 Criar diretório se não existir. **Nunca** substituir um arquivo existente por um “novo do zero”.
 
@@ -180,9 +180,9 @@ node "$HOME/.vint-qa/vqa.mjs" skills/create-test-scenarios/scripts/publish-test-
 
 ### Resolução de suites (ver [TEST-PLAN.md](TEST-PLAN.md))
 
-1. **Localizar Test Plan** do módulo (ex.: US 38.x → plano `PMO`)
-2. **Buscar suite da feature** (ex.: `Relatório Carteira de Contratos`)
-3. **Se suite da feature não existir** → criar sob suite pai (ex.: `Central de Relatórios da Área PMO`)
+1. **Localizar Test Plan** do módulo (ex.: US 12.x → plano `Comercial`)
+2. **Buscar suite da feature** (ex.: `Relatório de Vendas`)
+3. **Se suite da feature não existir** → criar sob suite pai (ex.: `Central de Relatórios Comerciais`)
 4. **Se suite da feature já existir** → criar sub-suite `Cenários — Agent — {DD/MM/AAAA}` e adicionar cenários nela
 5. **Criar Test Cases** com steps Gherkin + métricas mapeadas ([METRICS.md](METRICS.md))
 6. **Pular duplicatas** — mesmo `[CN-xx]` já presente na **suite da feature ou qualquer sub-suite**

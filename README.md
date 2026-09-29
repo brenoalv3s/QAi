@@ -69,7 +69,7 @@ node tools/smoke-test.mjs        # deve terminar com 0 falha(s); --keep preserva
 
 Regras do repositório:
 
-- Nenhum valor de projeto fixo em código: tudo vem de `.hub-projeto.json` e `.env` do projeto do usuário (o validador acusa `vintglobal`, `SGD - Sistema` etc. em `.mjs`)
+- Nenhum valor de projeto fixo em código: tudo vem de `.hub-projeto.json` e `.env` do projeto do usuário (o validador acusa referências a projetos específicos)
 - Caminhos do plugin em Markdown usam `{VINT_QA_ROOT}`; scripts são chamados via `node "$HOME/.vint-qa/vqa.mjs" skills/...`
 - Nunca commitar `.env`, tokens, `.cursor/mcp.json` ou `.vint-qa/cache/`
 - Arquivos de texto com fim de linha LF (`.gitattributes`)

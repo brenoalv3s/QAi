@@ -14,7 +14,7 @@ O arquivo `.md` de saída deve conter **cabeçalho wiki do projeto** + **um ou m
 <table>
 <tr></th>
 <td><b>Número do projeto </b> {azure.projeto} </td>
-<td><b>Cliente: </b> VINT GLOBAL</td>
+<td><b>Cliente: </b> {cliente}</td>
 <td><b>Versão: </b> [Versão] </td>
 <td><b>Data: </b> [DD/MM/AAAA] </td>
 </tr>
@@ -58,7 +58,7 @@ O arquivo `.md` de saída deve conter **cabeçalho wiki do projeto** + **um ou m
 
 | Elemento | Regra |
 |--|--|
-| Identificador | `[CN-{US}.{seq}]` — ex.: `CN-38.2.01`, `CN-09.2.03` |
+| Identificador | `[CN-{US}.{seq}]` — ex.: `CN-12.2.01`, `CN-05.2.03` |
 | Formato | `[Identificador] Funcionalidade - Ação realizada - Resultado esperado` |
 | Exemplo | `[CN-01] Login - Credenciais Válidas - Sucesso no acesso` |
 

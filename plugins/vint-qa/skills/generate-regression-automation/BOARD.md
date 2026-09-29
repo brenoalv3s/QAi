@@ -31,8 +31,8 @@ Usuário informa a feature — **sem gates obrigatórios**.
 Agente: `generate-regression-automation-manual` · Guia: [MANUAL.md](MANUAL.md)
 
 ```
-@generate-regression-automation-manual Demandas - Cadastrar
-/generate-regression-automation Demandas - Cadastrar --skip-mark-done
+@generate-regression-automation-manual Pedidos - Cadastrar
+/generate-regression-automation Pedidos - Cadastrar --skip-mark-done
 ```
 
 Opcional: `--validate-gates` | `--skip-mark-done` | `--no-wiki-gaps`

@@ -26,7 +26,7 @@ O título deve deixar claro:
 3. **Em que condição** (ação/gatilho)
 
 **Exemplo (do template):**  
-`[FE] Lista de Contratos - Coluna Gerente vazia ao expandir registro.`
+`[FE] Lista de Pedidos - Coluna Vendedor vazia ao expandir registro.`
 
 ---
 
@@ -35,7 +35,7 @@ O título deve deixar claro:
 Resumo do problema em linguagem clara:
 - Impacto para o usuário
 - Contexto em que o erro ocorre
-- Padrão específico, se houver (ex.: "só ocorre com contratos do cliente X")
+- Padrão específico, se houver (ex.: "só ocorre com pedidos do cliente X")
 
 Incluir metadados do teste:
 - **Cenário de teste:** `[CN-xx.x.yy]`
@@ -83,8 +83,8 @@ O que **realmente** aconteceu, destacando a falha.
 |--|--|--|
 | **Ambiente** | Sim | Homologação |
 | **Browser/Versão** | Sim | Chrome v.142 |
-| **Usuário/Login utilizado** | Sim | gestor.pmo@teste (perfil Gestor PMO) |
-| **Endpoint/API** | Se aplicável | `GET /api/v1/contratos/123/demandas` |
+| **Usuário/Login utilizado** | Sim | gestor.comercial@teste (perfil Gestor Comercial) |
+| **Endpoint/API** | Se aplicável | `GET /api/v1/pedidos/123/itens` |
 | **Logs** | Se disponível | Erros do console (F12) ou servidor |
 
 ---
@@ -142,7 +142,7 @@ node "$HOME/.vint-qa/vqa.mjs" skills/execute-manual-tests/scripts/create-bug-fro
   --endpoint "GET /api/..." \
   --logs "Console: ..." \
   --severity media \
-  --references "RN-15, US 38.1 C.1, MSA_02" \
+  --references "RN-15, US 12.1 C.1, MSA_02" \
   --evidence docs/test-evidence/{slug}/{cn-id}/screenshot.png \
   --feature "{feature}"
 ```

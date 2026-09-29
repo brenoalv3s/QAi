@@ -83,7 +83,7 @@ Para rodar **uma feature** sem cron nem gates do board, use a esteira ou o agent
 node "$HOME/.vint-qa/vqa.mjs" skills/generate-regression-automation/scripts/discover-regression-candidates.mjs
 
 # Automatizar uma feature sob demanda
-@generate-regression-automation-manual Gerar Relatório Carteira de Contratos
+@generate-regression-automation-manual Gerar Relatório de Vendas
 ```
 
 ---
@@ -92,5 +92,5 @@ node "$HOME/.vint-qa/vqa.mjs" skills/generate-regression-automation/scripts/disc
 
 ```
 /loop 1d /generate-regression-automation --auto
-@generate-regression-automation-manual Demandas - Cadastrar
+@generate-regression-automation-manual Pedidos - Cadastrar
 ```

@@ -29,7 +29,7 @@ Framework: [FRAMEWORK.md](FRAMEWORK.md) — detectar Playwright/Robot; se nenhum
 
 ## Organização por domínio (obrigatória)
 
-Cenários são agrupados pelo **domínio** (ex.: `Demandas`), **não** por PBI filho.
+Cenários são agrupados pelo **domínio** (ex.: `Pedidos`), **não** por PBI filho.
 
 ```
 e2e/fixtures/main.ts
@@ -85,7 +85,7 @@ node "$HOME/.vint-qa/vqa.mjs" skills/generate-regression-automation/scripts/disc
 
 - `eligible[]` vazio → abortar com `blocked[]` e `skipped[]`
 - **Processar somente `eligible[0]`** — uma feature por execução
-- `feature` = `pbiTitle` do item selecionado (ex.: `Demandas - Cadastrar`)
+- `feature` = `pbiTitle` do item selecionado (ex.: `Pedidos - Cadastrar`)
 
 Regras: [BOARD.md](BOARD.md)
 
@@ -104,7 +104,7 @@ node "$HOME/.vint-qa/vqa.mjs" skills/generate-regression-automation/scripts/list
   --feature "{feature}" --plan-id {planId} --include-wiki-gaps --json
 ```
 
-> Features fora dos hints automáticos (PMO, Colaboradores, Tecnologias) **exigem** `--plan-id` ou `AZURE_DEVOPS_PLAN_ID`.
+> Features sem dica em `azure.testPlans.planos` (`.hub-projeto.json`) **exigem** `--plan-id` ou `AZURE_DEVOPS_PLAN_ID`.
 
 Filtro: **Muito Alta** + **Alta** (`highCriticity: true`) — Test Plans **e** gaps wiki.
 
@@ -160,7 +160,7 @@ Gera ou mescla (se não existir; use `--force` para sobrescrever):
 
 Se a origem for **URL ou texto** (modo manual): **não** exigir os scripts Azure; criar os arquivos na mesma árvore.
 
-**Não** criar pastas por PBI (`demandas-cadastrar/`) nem `regressao.spec.ts` monolítico por ação.
+**Não** criar pastas por PBI (`pedidos-cadastrar/`) nem `regressao.spec.ts` monolítico por ação.
 
 ---
 

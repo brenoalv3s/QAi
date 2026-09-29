@@ -3,7 +3,7 @@
  * Grava valores informados pelo usuário em .hub-projeto.json (hub.*) e .env (env.*).
  * Valores de .env nunca são impressos.
  *
- *   vqa set hub.projeto=site-x hub.email=qa@empresa.com hub.plataforma=azure
+ *   vqa set hub.projeto=meu-projeto hub.email=qa@empresa.com hub.plataforma=azure
  *   vqa set hub.ambientes.tst.url=https://app-tst... hub.ambientes.tst.api=https://api-tst...
  *   vqa set env.TEST_USER=qa "env.TEST_PASSWORD=minha senha"
  *   vqa set --use-env tst        copia a URL/API do ambiente para BASE_URL/SYSTEM_URL/API_BASE_URL

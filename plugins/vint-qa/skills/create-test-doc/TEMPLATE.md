@@ -97,7 +97,7 @@ O arquivo `.md` de saída deve conter **exatamente** estas seções, nesta ordem
 |--|--|
 | Logo | Valor de `azure.wikiLogo` do `.hub-projeto.json` (Markdown da imagem já anexada na wiki). Se vazio, omitir a linha da logo |
 | Número do projeto | Nome do projeto Azure DevOps (`azure.projeto` do `.hub-projeto.json`) |
-| Cliente | Nome do cliente do projeto; senão `VINT GLOBAL` se constar na wiki |
+| Cliente | `cliente` do `.hub-projeto.json`; se vazio, o cliente que constar na wiki; se não houver, omitir |
 | Versão | Versão da US/SPEC ou `1.0` se não houver |
 | Data | Data atual no formato `DD/MM/AAAA` |
 | TOC | Sempre incluir `[[_TOC_]]` após a tabela HTML |
@@ -153,7 +153,7 @@ O cabeçalho do documento usa **HTML**, não Markdown:
 <table>
 <tr></th>
 <td><b>Número do projeto </b> {azure.projeto} </td>
-<td><b>Cliente: </b> VINT GLOBAL</td>
+<td><b>Cliente: </b> {cliente}</td>
 <td><b>Versão: </b> 1.0 </td>
 <td><b>Data: </b>06/06/2026 </td>
 </tr>

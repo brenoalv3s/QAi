@@ -10,8 +10,8 @@ Valores lidos do `.hub-projeto.json` do projeto aberto (nunca fixos no plugin). 
 | Projeto | `azure.projeto` |
 | Wiki | `azure.wiki` |
 | Raiz da wiki | `azure.wikiRaiz` (ex.: `/Nome do Projeto`) |
-| Pasta dos DOCs de teste | `azure.wikiDocumentosTeste` (padrão `Squads/Testes & QA/Documentos de Testes`) |
-| Módulos (US → pasta DOC) | `azure.modulosWiki`: `[{ "usPrefix": "38.", "parentFolder": "DOC 37 - Central de Relatórios", "docParentNum": "37" }]` |
+| Pasta dos DOCs de teste | `azure.wikiDocumentosTeste` (padrão `Testes/Documentos de Testes` quando vazio) |
+| Módulos (US → pasta DOC) | `azure.modulosWiki`: `[{ "usPrefix": "12.", "parentFolder": "DOC 11 - Central de Relatórios", "docParentNum": "11" }]` |
 | Logo no índice das pastas | `azure.wikiLogo` (markdown de imagem, opcional) |
 | URL base | `https://dev.azure.com/{azure.organizacao}/{azure.projeto}/_wiki/wikis/{azure.wiki}` |
 
@@ -19,7 +19,7 @@ Valores lidos do `.hub-projeto.json` do projeto aberto (nunca fixos no plugin). 
 
 ```
 {azure.wikiRaiz}
-└── {azure.wikiDocumentosTeste}   (padrão: Squads/Testes & QA/Documentos de Testes)
+└── {azure.wikiDocumentosTeste}   (padrão: Testes/Documentos de Testes)
             ├── DOC {N} - {Módulo}                    ← módulo simples (1 DOC)
             └── DOC {N} - {Módulo}                    ← pasta pai (módulo com sub-US)
                 ├── DOC {N}.{sub} - {Funcionalidade}
@@ -30,13 +30,12 @@ Valores lidos do `.hub-projeto.json` do projeto aberto (nunca fixos no plugin). 
 
 | US | Caminho wiki |
 |--|--|
-| US 38.1 | `.../Documentos de Testes/DOC 37 - Central de Relatórios/DOC 37.1 - Gerar Relatório Carteira de Contratos` |
-| US 38.2 | `.../Documentos de Testes/DOC 37 - Central de Relatórios/DOC 37.2 - Gerar Relatório Financeiro dos Contratos PMO` |
-| US 15.3 | `.../Documentos de Testes/DOC 15 - Contratos/DOC 15.3 - Contratos - Editar` |
-| US 08.1 | `.../Documentos de Testes/DOC 08 - Tecnologia/DOC 8.1 - Tecnologias - Tela Inicial` |
-| — | `.../Documentos de Testes/DOC 11 - Tipos de Serviços` (sem subpasta) |
+| US 12.1 | `.../Documentos de Testes/DOC 11 - Central de Relatórios/DOC 11.1 - Gerar Relatório de Vendas` |
+| US 12.2 | `.../Documentos de Testes/DOC 11 - Central de Relatórios/DOC 11.2 - Gerar Relatório de Estoque` |
+| US 05.3 | `.../Documentos de Testes/DOC 05 - Produtos/DOC 5.3 - Produtos - Editar` |
+| — | `.../Documentos de Testes/DOC 20 - Categorias` (sem subpasta) |
 
-**Observação:** o número do DOC nem sempre coincide com o da US (ex.: US 38.x → pasta `DOC 37`). Priorizar busca na wiki antes de inferir.
+**Observação:** o número do DOC nem sempre coincide com o da US (ex.: US 12.x → pasta `DOC 11`). Priorizar busca na wiki antes de inferir.
 
 ---
 
@@ -47,9 +46,9 @@ Valores lidos do `.hub-projeto.json` do projeto aberto (nunca fixos no plugin). 
 Ordem de extração:
 
 1. Metadados explícitos (se presentes após `[[_TOC_]]`):
-   - `**US de referência:** US 38.1 — ...`
-   - `**Wiki (DOC):** DOC 37.1 - Gerar Relatório Carteira de Contratos`
-2. Linha **Casos de Teste (Azure DevOps):** `[Link do Azure Test Plans: US 38.1 - Nome]`
+   - `**US de referência:** US 12.1 — ...`
+   - `**Wiki (DOC):** DOC 11.1 - Gerar Relatório de Vendas`
+2. Linha **Casos de Teste (Azure DevOps):** `[Link do Azure Test Plans: US 12.1 - Nome]`
 3. Primeira ocorrência de `US (\d+)\.(\d+)` no Objetivo Principal
 
 ### 2. Listar páginas existentes
@@ -72,7 +71,7 @@ Filtrar paths sob `{azure.wikiDocumentosTeste}`.
 **Pasta pai ausente** → criar página índice mínima:
 
 ```markdown
-![vint-marca-2.png](...)
+{azure.wikiLogo}   (linha omitida se vazio)
 [[_TOC_]]
 ```
 
@@ -94,16 +93,15 @@ Usado somente quando a wiki não tem página correspondente.
 
 | Prefixo US | Pasta pai | Número DOC pai |
 |--|--|--|
-| `38.` | `DOC 37 - Central de Relatórios` | `37` |
-| `15.` | `DOC 15 - Contratos` | `15` |
-| `13.` | `DOC 13 - Clientes` | `13` |
-| `14.` | `DOC 14 - Demandas` | `14` |
-| `26.` / `28.` | `DOC 26 - Ausências` | `26` |
-| `10.` | `DOC 10 - Apontamentos` | `10` |
-| `09.` / `9.` | `DOC 09 - Colaboradores` | `09` |
-| `08.` / `8.` | `DOC 08 - Tecnologia` | `08` |
+Vem de `azure.modulosWiki` no `.hub-projeto.json`. Exemplo:
 
-Para US `38.{sub}`: página filha `DOC 37.{sub} - {Título}`.
+| Prefixo US | Pasta pai | Número DOC pai |
+|--|--|--|
+| `12.` | `DOC 11 - Central de Relatórios` | `11` |
+| `05.` / `5.` | `DOC 05 - Produtos` | `05` |
+| `14.` | `DOC 14 - Pedidos` | `14` |
+
+Para US `12.{sub}`: página filha `DOC 11.{sub} - {Título}`.
 
 ---
 
@@ -112,9 +110,9 @@ Para US `38.{sub}`: página filha `DOC 37.{sub} - {Título}`.
 Inserir após `[[_TOC_]]` — usados pelo script de publicação, não alteram o template visual:
 
 ```markdown
-**Funcionalidade:** Gerar Relatório Carteira de Contratos
-**US de referência:** US 38.1 — Gerar Relatório Carteira de Contratos PMO
-**Wiki (DOC):** DOC 37.1 - Gerar Relatório Carteira de Contratos
+**Funcionalidade:** Gerar Relatório de Vendas
+**US de referência:** US 12.1 — Gerar Relatório de Vendas por Período
+**Wiki (DOC):** DOC 11.1 - Gerar Relatório de Vendas
 ```
 
 ---

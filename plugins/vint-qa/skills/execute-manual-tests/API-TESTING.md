@@ -84,8 +84,8 @@ O agente deve:
 ```bash
 node "$HOME/.vint-qa/vqa.mjs" skills/execute-manual-tests/scripts/api-request.mjs \
   --method POST \
-  --path /api/relatorios/carteira-contratos \
-  --body '{"contratoId":1}' \
+  --path /api/relatorios/vendas \
+  --body '{"produtoId":1}' \
   --save docs/test-evidence/{slug}/{cn-id}/api-response.json \
   --json
 ```

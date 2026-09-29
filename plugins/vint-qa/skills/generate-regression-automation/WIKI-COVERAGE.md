@@ -64,15 +64,15 @@ Cenários wiki recebem ID sintético `WIKI-RN15`, `WIKI-US-09-1`, etc.
 ```bash
 # Lista unificada (Test Plans + gaps wiki)
 node "$HOME/.vint-qa/vqa.mjs" skills/generate-regression-automation/scripts/list-regression-scenarios.mjs \
-  --feature "Demandas - Cadastrar" --include-wiki-gaps --json
+  --feature "Pedidos - Cadastrar" --include-wiki-gaps --json
 
 # Relatório detalhado de gaps
 node "$HOME/.vint-qa/vqa.mjs" skills/generate-regression-automation/scripts/analyze-wiki-coverage-gaps.mjs \
-  --feature "Demandas - Cadastrar" --json
+  --feature "Pedidos - Cadastrar" --json
 
 # Scaffold incluindo cenários wiki
 node "$HOME/.vint-qa/vqa.mjs" skills/generate-regression-automation/scripts/scaffold-regression.mjs \
-  --feature "Demandas - Cadastrar" --include-wiki-gaps
+  --feature "Pedidos - Cadastrar" --include-wiki-gaps
 ```
 
 ---

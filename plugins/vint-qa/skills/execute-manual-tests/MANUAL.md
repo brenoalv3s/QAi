@@ -23,7 +23,7 @@ Para execução **automática** (cron + gates do board), use o agente `execute-m
 ### Agente dedicado (foreground)
 
 ```
-@execute-manual-tests-manual Central de Relatórios - Carteira de Contratos
+@execute-manual-tests-manual Central de Relatórios - Vendas
 ```
 
 Ou delegue: *"Execute os testes manuais da feature X"*.
@@ -35,13 +35,13 @@ A cada cenário: Mark Outcome (**Passed** / **Failed** / **NotApplicable**), an�
 ### Skill (mesmo fluxo)
 
 ```
-/execute-manual-tests Central de Relatórios - Carteira de Contratos
+/execute-manual-tests Central de Relatórios - Vendas
 ```
 
 ### Opções
 
 ```
-/execute-manual-tests {feature} --cn CN-38.1.01,CN-38.1.02
+/execute-manual-tests {feature} --cn CN-12.1.01,CN-12.1.02
 /execute-manual-tests {feature} --validate-gates
 /execute-manual-tests {feature} --skip-board
 ```
@@ -65,7 +65,7 @@ O cron (`execute-manual-tests.prefill.json`) continua sendo o modo automático c
 Com Cursor aberto e MCPs locais ativos:
 
 ```
-/loop 2h /execute-manual-tests Central de Relatórios - Carteira de Contratos
+/loop 2h /execute-manual-tests Central de Relatórios - Vendas
 ```
 
 Útil para reexecutar a mesma feature periodicamente durante homologação.
@@ -87,7 +87,7 @@ Guia de massa e postura: [SENIOR-QA.md](SENIOR-QA.md).
 ```bash
 # Listar cenários antes de executar
 node "$HOME/.vint-qa/vqa.mjs" skills/execute-manual-tests/scripts/list-feature-scenarios.mjs \
-  --feature "Central de Relatórios - Carteira de Contratos" --json
+  --feature "Central de Relatórios - Vendas" --json
 ```
 
 ---

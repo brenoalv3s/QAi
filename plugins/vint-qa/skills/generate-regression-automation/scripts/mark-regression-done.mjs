@@ -5,8 +5,8 @@
  * Não altera wiki, PBI, cards, steps nem demais campos. Ver READONLY-POLICY.md.
  *
  * Uso:
- *   node mark-regression-done.mjs --feature "Demandas - Cadastrar"
- *   node mark-regression-done.mjs --feature "Demandas - Cadastrar" --cn-ids "CN-01,CN-02"
+ *   node mark-regression-done.mjs --feature "Pedidos - Cadastrar"
+ *   node mark-regression-done.mjs --feature "Pedidos - Cadastrar" --cn-ids "CN-01,CN-02"
  */
 import { loadPat, authHeader, ORG, PROJECT_ENC } from '../../execute-manual-tests/scripts/lib/azure-api.mjs';
 import {
@@ -86,7 +86,7 @@ async function main() {
 
   if (!feature) {
     console.error(
-      'Uso: node mark-regression-done.mjs --feature "Demandas - Cadastrar" [--plan-id N] [--suite-id N] [--cn-ids "CN-01,CN-02"] [--summary "..."]',
+      'Uso: node mark-regression-done.mjs --feature "Pedidos - Cadastrar" [--plan-id N] [--suite-id N] [--cn-ids "CN-01,CN-02"] [--summary "..."]',
     );
     process.exit(1);
   }

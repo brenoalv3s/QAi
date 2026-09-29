@@ -70,7 +70,7 @@ Para **cada** MSA / MSC / MSE / MSA citada no CN, na US ou no DOC: **buscar o te
 4. Se o CN disser só “exibir MSC_01” sem texto: usar o texto já resolvido na ficha (Descrição MSG).
 5. Sem catálogo MSG na wiki: usar US → DOC → CN, nessa ordem, e registrar lacuna na ficha.
 
-**Exemplo (SITE):** Descrição MSG `MSC_01` = `<Registro> cadastrado com sucesso.` + feature Mercado → esperado UI `Mercado cadastrado com sucesso.` — toast igual = **Passed** no gate de mensagem.
+**Exemplo:** Descrição MSG `MSC_01` = `<Registro> cadastrado com sucesso.` + feature Produto → esperado UI `Produto cadastrado com sucesso.` — toast igual = **Passed** no gate de mensagem.
 
 ### Placeholder "Registro" / `<Registro>` nas mensagens (obrigatório)
 
@@ -82,30 +82,30 @@ Nas mensagens de requisito (MSG / MSA / MSC / RN / US / DOC / steps do CN), **`<
 |-----|---------|-------------------|
 | `registro` / `Registro` / `<Registro>` | Ata | `ata` / `Ata` |
 | `registros` / `Registros` / `<Registros>` | Ata | `atas` / `Atas` |
-| `registro` / `<Registro>` | Mercado | `mercado` / `Mercado` |
+| `registro` / `<Registro>` | Produto | `produto` / `Produto` |
 
-Nome curto da feature (ex.: **Ata**, **Mercado**), não o título longo do PBI — salvo se a UI usar o nome longo.
+Nome curto da feature (ex.: **Ata**, **Produto**), não o título longo do PBI — salvo se a UI usar o nome longo.
 
 #### 2) Concordância (gênero e número) — obrigatória
 
-Inferir o gênero do nome da feature em português (ex.: **Ata** = feminino; **Mercado** / **Colaborador** = masculino). Ajustar determinantes, indefinidos e adjetivos que se referem à entidade:
+Inferir o gênero do nome da feature em português (ex.: **Ata** = feminino; **Produto** / **Pedido** = masculino). Ajustar determinantes, indefinidos e adjetivos que se referem à entidade:
 
-| Padrão (doc, com "registro") | Feature feminina (Ata) | Feature masculina (Mercado) |
+| Padrão (doc, com "registro") | Feature feminina (Ata) | Feature masculina (Produto) |
 |------------------------------|------------------------|-----------------------------|
-| Nenhum registro … encontrada/o | Nenhuma ata … encontrada | Nenhum mercado … encontrado |
-| O registro foi … | A ata foi … | O mercado foi … |
-| Registro cadastrado … | Ata cadastrada … | Mercado cadastrado … |
-| Registro atualizado / excluído | Ata atualizada / excluída | Mercado atualizado / excluído |
-| Este registro / Todos os registros | Esta ata / Todas as atas | Este mercado / Todos os mercados |
+| Nenhum registro … encontrada/o | Nenhuma ata … encontrada | Nenhum produto … encontrado |
+| O registro foi … | A ata foi … | O produto foi … |
+| Registro cadastrado … | Ata cadastrada … | Produto cadastrado … |
+| Registro atualizado / excluído | Ata atualizada / excluída | Produto atualizado / excluído |
+| Este registro / Todos os registros | Esta ata / Todas as atas | Este produto / Todos os produtos |
 
 **Exemplos práticos:**
 
 | Na documentação | Feature | Esperado (sentido) |
 |-----------------|---------|--------------------|
-| `<Registro> cadastrado com sucesso.` | Mercado | Mercado cadastrado com sucesso. |
-| `Registro cadastrado com sucesso` | Mercado | Mercado cadastrado com sucesso |
+| `<Registro> cadastrado com sucesso.` | Produto | Produto cadastrado com sucesso. |
+| `Registro cadastrado com sucesso` | Produto | Produto cadastrado com sucesso |
 | `Nenhum registro do filtro encontrada` | Ata | Nenhuma ata do filtro encontrada |
-| `Nenhum registro encontrado` | Mercado | Nenhum mercado encontrado |
+| `Nenhum registro encontrado` | Produto | Nenhum produto encontrado |
 | `Registro atualizado com sucesso` | Ata | Ata atualizada com sucesso |
 
 Lista típica a ajustar junto com a troca: `nenhum/nenhuma`, `o/a`, `os/as`, `este/esta`, `estes/estas`, `todo/toda`, `todos/todas`, `cadastrado(a)`, `atualizado(a)`, `excluído(a)`, `encontrado(a)`, `criado(a)`, `salvo(a)`, `inativado(a)`, etc.
@@ -118,7 +118,7 @@ Ao comparar toast/alerta/confirmação com o esperado:
 2. Critério de aceite da mensagem: a UI deve exibir o **nome da funcionalidade no lugar de "registro(s)"**, com **concordância coerente** — não o literal genérico “registro”.
 3. **Não** marcar Failed só porque a capitalização divergiu da doc ou do exemplo da ficha.
 4. **Não** marcar Failed só porque a doc diz “Registro …” e a UI mostra “{Feature} …” (com concordância).
-5. **Failed** se a UI ainda mostrar “registro(s)” genérico **ou** o nome da feature sem concordância que mude o sentido (ex.: `Nenhum ata`, `Nenhuma mercado`).
+5. **Failed** se a UI ainda mostrar “registro(s)” genérico **ou** o nome da feature sem concordância que mude o sentido (ex.: `Nenhum ata`, `Nenhuma produto`).
 
 **Não** aplicar essa troca em prosa genérica do agente (“criar o registro de massa”); só em **textos de mensagem** vindos dos requisitos.
 
@@ -281,7 +281,7 @@ O risco real de filtros não é "o filtro não funcionou" — é **"o filtro fun
 | **Excluir / cancelar** | Garantir registro elegível (criar se preciso), executar exclusão/cancelamento, validar listagem/mensagem |
 | **Visualizar / detalhe** | Abrir o registro; criar massa se a listagem estiver vazia para o critério |
 | **Histórico** | Abrir histórico do registro; se vazio, provocar uma alteração (edição) e reabrir |
-| **Estado / situação específica** (ex.: contrato **Autorizado**) | Se não houver nenhum na listagem → **cadastrar** (ou alterar) até obter esse estado; **só então** validar o CN |
+| **Estado / situação específica** (ex.: pedido **Aprovado**) | Se não houver nenhum na listagem → **cadastrar** (ou alterar) até obter esse estado; **só então** validar o CN |
 | **Transição de status** | Partir do estado de origem exigido (criar/ajustar massa) e executar a transição |
 
 **Proibido** concluir com Failed/N/A apenas por “não há registro Autorizado” / “não há massa” quando a UI/API **permite** criar ou ajustar esse registro.
@@ -308,7 +308,7 @@ No chat, ao preparar massa:
 
 ```markdown
 ### Preparação de massa (pré-condição de {CN-id})
-**Falta:** {ex.: contrato Situação = Autorizado}
+**Falta:** {ex.: pedido com situação = Aprovado}
 **Ação:** vou cadastrar/ajustar via UI (ou API) antes de validar o cenário.
 ```
 
@@ -316,15 +316,15 @@ No chat, ao preparar massa:
 
 ## Exemplos
 
-### Reformular a Situação do Contrato
+### Reformular a situação de um pedido
 
-- CN pede validar contrato **Autorizado** e a listagem não tem nenhum → **cadastrar contrato** com Situação Autorizado (ou o caminho que a RN/SPEC definir) → depois validar o CN.
-- CN pede editar situação Autorizado → Ativo → garantir Autorizado (criar se preciso) → editar → evidenciar.
-- CN pede histórico → criar/alterar contrato, abrir Histórico, evidenciar.
+- CN pede validar pedido **Aprovado** e a listagem não tem nenhum → **cadastrar pedido** com situação Aprovado (ou o caminho que a RN/SPEC definir) → depois validar o CN.
+- CN pede editar situação Aprovado → Faturado → garantir Aprovado (criar se preciso) → editar → evidenciar.
+- CN pede histórico → criar/alterar pedido, abrir Histórico, evidenciar.
 
 ### Genérico
 
-- “Dado que existe um colaborador ativo” e a lista está vazia → cadastrar colaborador ativo.
+- “Dado que existe um produto ativo” e a lista está vazia → cadastrar produto ativo.
 - “Quando excluo o registro X” e X não existe → criar X → excluir.
 - “Então o filtro por status Y retorna…” → criar ao menos um Y se a busca vier vazia por falta de dados, não por bug de filtro.
 
@@ -421,7 +421,7 @@ Para cada módulo/funcionalidade relacionada identificado no passo anterior, exe
 
 ### Passo 3 — Checks de Integração (INT-xx)
 
-Para fluxos **encadeados** (aprovação → contrato, colaborador → relatório, etc.):
+Para fluxos **encadeados** (aprovação → pedido, produto → relatório, etc.):
 
 ```
 ### INT-{nn} — {Nome do Fluxo de Integração}

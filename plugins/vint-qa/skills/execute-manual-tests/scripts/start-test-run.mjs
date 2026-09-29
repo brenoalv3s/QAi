@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Cria Test Run (modo Execute) para a suite da feature.
- * Uso: node start-test-run.mjs --feature "Gerar Relatório Carteira de Contratos"
+ * Uso: node start-test-run.mjs --feature "Gerar Relatório de Vendas"
  */
 import { loadPat, api } from './lib/azure-api.mjs';
 import { resolveFeatureSuite, getTestPoints, testPlanOptionsFromArgs } from './lib/test-plan-utils.mjs';

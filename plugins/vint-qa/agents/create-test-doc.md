@@ -27,7 +27,7 @@ Usar `azure-devops` (MCP do projeto, gerado por `vqa sync-mcp`):
 3. `list_wiki_pages` para mapear estrutura de `{azure.wikiDocumentosTeste}`
 4. `get_wiki_page` / `search_wiki` para cada página de requisitos (nesta ordem):
    - `{feature} SPEC`, `{feature} US`, `{feature} RN`, `{feature} MSG`, `{feature} ALI`
-5. Buscar DOC existente do mesmo módulo (ex.: `DOC 37.1`) para validar padrão de nomenclatura e pasta pai
+5. Buscar DOC existente do mesmo módulo (ex.: `DOC 11.1`) para validar padrão de nomenclatura e pasta pai
 6. Se a feature incluir filtros/busca, buscar também páginas de catálogo: `Mensagens de Alerta`, `Mensagens de Confirmação`
 
 Complementar com `e2e/docs/wiki/` se a wiki local estiver sincronizada.

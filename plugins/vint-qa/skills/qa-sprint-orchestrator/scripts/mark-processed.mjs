@@ -2,7 +2,7 @@
 /**
  * Marca PBI/task como processados pelo orquestrador QA.
  * Uso:
- *   node mark-processed.mjs --pbi 25862 --doc-task 25867 --wiki-url "..." --test-plan-url "..."
+ *   node mark-processed.mjs --pbi 1234 --doc-task 1240 --wiki-url "..." --test-plan-url "..."
  */
 import { readFileSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';

@@ -1,13 +1,13 @@
 {
-  "projeto": "site-institucional",
+  "projeto": "app-agendamentos",
   "email": "qa@empresa.com.br",
   "plataforma": "gitlab",
   "frameworkAutomacao": "playwright",
-  "prefixoTitulo": "Site",
+  "prefixoTitulo": "Agendamentos",
   "ambientePadrao": "hml",
   "ambientes": {
-    "hml": { "url": "https://hml.site.empresa.com.br", "api": "" }
+    "hml": { "url": "https://hml.agendamentos.example.org", "api": "" }
   },
-  "gitlab": { "url": "https://gitlab.com", "projeto": "empresa/site-institucional" },
+  "gitlab": { "url": "https://gitlab.com", "projeto": "empresa/app-agendamentos" },
   "requisitos": { "pastaLocal": "docs/requisitos" }
 }

@@ -17,7 +17,7 @@ No início: `preflight-mcp.mjs`. Se `next` = `ask-platform`, seguir [PLATFORM.md
 
 ## Passo 0 — Coletar a feature
 
-Obter o **nome da funcionalidade** (ex.: "Cadastro de Colaboradores", "Login").
+Obter o **nome da funcionalidade** (ex.: "Cadastro de Produtos", "Login").
 
 Se não informado, usar `AskQuestion` ou perguntar diretamente. Aguardar resposta antes de continuar.
 
@@ -48,7 +48,7 @@ Buscar **todas** as páginas relacionadas à feature, nesta ordem de prioridade:
 
 Se wiki local existir (`e2e/docs/wiki/`), complementar com leitura dos `.md` sincronizados.
 
-**Referência de formato:** consultar um DOC existente na wiki (ex.: `DOC 37.1`) para validar o padrão visual antes de gerar.
+**Referência de formato:** consultar um DOC existente na wiki (ex.: `DOC 11.1`) para validar o padrão visual antes de gerar.
 
 ---
 
@@ -106,7 +106,7 @@ Caminho de saída:
 docs/test-docs/{feature-slug}/documento-de-teste.md
 ```
 
-Onde `{feature-slug}` é kebab-case sem acentos (ex.: `cadastro-de-colaboradores`).
+Onde `{feature-slug}` é kebab-case sem acentos (ex.: `cadastro-de-produtos`).
 
 Criar diretório se não existir.
 
@@ -125,16 +125,16 @@ node "$HOME/.vint-qa/vqa.mjs" skills/create-test-doc/scripts/publish-test-doc.mj
 
 1. **Extrair US** dos metadados ou do Objetivo / Casos de Teste
 2. **Buscar página existente** sob `{azure.wikiDocumentosTeste}`
-3. **Se pasta pai ausente** → criar índice mínimo (ex.: `DOC 37 - Central de Relatórios`)
+3. **Se pasta pai ausente** → criar índice mínimo (ex.: `DOC 11 - Central de Relatórios`)
 4. **Se página da feature ausente** → criar em `{pasta pai}/DOC {N}.{sub} - {Título}`
 5. **Se página já existe** → atualizar conteúdo (PUT com eTag)
 
 ### Metadados obrigatórios para publicação
 
 ```markdown
-**Funcionalidade:** Gerar Relatório Carteira de Contratos
-**US de referência:** US 38.1 — Gerar Relatório Carteira de Contratos PMO
-**Wiki (DOC):** DOC 37.1 - Gerar Relatório Carteira de Contratos
+**Funcionalidade:** Gerar Relatório de Vendas
+**US de referência:** US 12.1 — Gerar Relatório de Vendas por Período
+**Wiki (DOC):** DOC 11.1 - Gerar Relatório de Vendas
 ```
 
 O campo **Wiki (DOC)** deve seguir o padrão de nomenclatura das páginas existentes na wiki (consultar `list_wiki_pages` ou `search_wiki` antes de preencher).

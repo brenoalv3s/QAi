@@ -2,9 +2,9 @@
 /**
  * Resolve PBI no Azure DevOps por ID ou título (nome).
  * Uso:
- *   node resolve-pbi.mjs --id 25862 --json
- *   node resolve-pbi.mjs --title "Cadastro de Colaboradores" --json
- *   node resolve-pbi.mjs --title "25862" --json
+ *   node resolve-pbi.mjs --id 1234 --json
+ *   node resolve-pbi.mjs --title "Cadastro de Produtos" --json
+ *   node resolve-pbi.mjs --title "1234" --json
  */
 import { readFileSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';

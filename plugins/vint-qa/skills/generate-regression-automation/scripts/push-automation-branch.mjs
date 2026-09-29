@@ -3,7 +3,7 @@
  * Após testes da automação regressiva passarem: branch, commit (sem segredos), push.
  * Imprime JSON com URL para o QA abrir o PR. Não cria o PR.
  *
- *   node push-automation-branch.mjs --feature "Cadastro de Colaboradores" --json
+ *   node push-automation-branch.mjs --feature "Cadastro de Produtos" --json
  */
 import { spawnSync } from 'child_process';
 import { dirname, resolve } from 'path';

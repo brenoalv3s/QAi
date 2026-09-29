@@ -13,7 +13,7 @@
  *
  * Uso:
  *   node record-test-result.mjs --run-id 123 --result-id 456 --outcome Passed \
- *     --evidence path/fluxo.gif,path/fluxo.png --pbi 25862 --test-case-id 30001 --cn CN-01
+ *     --evidence path/fluxo.gif,path/fluxo.png --pbi 1234 --test-case-id 30001 --cn CN-01
  */
 import { existsSync, readdirSync } from 'fs';
 import { basename, dirname, extname, join } from 'path';

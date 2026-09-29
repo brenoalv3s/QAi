@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Lista artefatos de automação já existentes para uma feature (reuso).
- *   node inspect-feature-automation.mjs --feature "Colaboradores" --json
+ *   node inspect-feature-automation.mjs --feature "Produtos" --json
  */
 import { existsSync, readdirSync, statSync } from 'fs';
 import { join, relative, resolve, dirname } from 'path';

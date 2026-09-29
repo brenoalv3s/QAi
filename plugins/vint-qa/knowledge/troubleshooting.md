@@ -30,9 +30,6 @@
 
 **Como resolver:** `npx playwright install chromium` dentro de `e2e/` (ou `vqa doctor --install --force`).
 
-## Variáveis antigas `SGD_*`
-
-Projetos anteriores ao plugin usam `SGD_APP_URL`, `SGD_TEST_USER` etc. Os scripts aceitam os dois formatos (aliases). Para migrar, gravar os nomes novos com `vqa set env.BASE_URL=... env.TEST_USER=...`; os antigos podem ser removidos depois.
 
 ## Evidência sem GIF
 

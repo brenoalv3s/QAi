@@ -14,7 +14,7 @@ Analisa uma spec Playwright e emite relatório de cobertura + conformidade, com 
 ## Passo 0 — Identificar o arquivo alvo
 
 Perguntar ao usuário (ou inferir do contexto):
-- Caminho da spec a revisar (ex.: `e2e/tests/cadastro-colaborador.spec.ts`)
+- Caminho da spec a revisar (ex.: `e2e/tests/cadastro-produto.spec.ts`)
 - Se não fornecido, listar specs disponíveis com `e2e_find_tests` e pedir seleção
 
 ---
@@ -73,7 +73,7 @@ Cruzar as RNs encontradas na wiki com os títulos de `test()` na spec:
 
 ```
 RN_00 — Unicidade de CPF               → ✅ coberta  (linha 42)
-RN_04 — Limite de 10 colaboradores     → ❌ ausente
+RN_04 — Limite de 10 itens por pedido    → ❌ ausente
 RN_07 — Desligamento exige data futura → ❌ ausente
 MSA_03 — Mensagem de duplicidade       → ✅ coberta  (linha 67)
 MSC_03 — Diálogo de confirmação        → ⚠️ cenário de confirmação existe, cancelamento não

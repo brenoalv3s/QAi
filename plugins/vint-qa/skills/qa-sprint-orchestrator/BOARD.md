@@ -84,9 +84,9 @@ DocTestes em progresso?
 
 Exemplo:
 
-| PBI #25862 | `Implementar Histórico de dados na Funcionalidade de Colaboradores` |
+| PBI #1234 | `Implementar Histórico de dados na Funcionalidade de Produtos` |
 |--|--|
-| Feature para agentes | `Implementar Histórico de dados na Funcionalidade de Colaboradores` |
+| Feature para agentes | `Implementar Histórico de dados na Funcionalidade de Produtos` |
 
 ## Idempotência
 
@@ -115,7 +115,7 @@ Após sucesso:
 
 ```bash
 node "$HOME/.vint-qa/vqa.mjs" skills/qa-sprint-orchestrator/scripts/discover-board-candidates.mjs
-node "$HOME/.vint-qa/vqa.mjs" skills/qa-sprint-orchestrator/scripts/discover-board-candidates.mjs --work-item 25867
+node "$HOME/.vint-qa/vqa.mjs" skills/qa-sprint-orchestrator/scripts/discover-board-candidates.mjs --work-item 1240
 ```
 
 Variáveis opcionais:

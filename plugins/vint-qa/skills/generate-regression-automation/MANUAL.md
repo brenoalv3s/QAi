@@ -28,7 +28,7 @@ Para execução **automática** (cron + gate Executar Teste Done), use o agente 
 ```
 @generate-regression-automation-manual Login do sistema --plan-id 24344
 @generate-regression-automation-manual {URL da documentação}
-@generate-regression-automation-manual Demandas - Cadastrar
+@generate-regression-automation-manual Pedidos - Cadastrar
 ```
 
 O agente lê **`.env` na raiz**. Se não houver URL do sistema, **pergunta**. Se a origem não for Test Plan, gera specs/POMs/fixtures sem os scripts Azure.
@@ -39,7 +39,7 @@ Antes de listar o Test Plans: `preflight-mcp.mjs`. Se faltar Playwright/Robot, r
 
 ```
 /generate-regression-automation "Login do sistema" --plan-id 24344
-/generate-regression-automation Demandas - Cadastrar
+/generate-regression-automation Pedidos - Cadastrar
 ```
 
 ### Opções
@@ -71,7 +71,7 @@ O cron (`generate-regression-automation.prefill.json`) continua sendo o modo aut
 Com Cursor aberto e MCPs locais ativos:
 
 ```
-/loop 1d /generate-regression-automation Demandas - Cadastrar
+/loop 1d /generate-regression-automation Pedidos - Cadastrar
 ```
 
 ---

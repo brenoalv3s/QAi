@@ -1,21 +1,31 @@
 {
   "projeto": "",
   "email": "",
+  "cliente": "",
   "plataforma": "",
   "frameworkAutomacao": "",
   "prefixoTitulo": "",
   "ambientePadrao": "tst",
   "ambientes": {
-    "dev": { "url": "", "api": "" },
-    "tst": { "url": "", "api": "" },
-    "hml": { "url": "", "api": "" }
+    "dev": {
+      "url": "",
+      "api": ""
+    },
+    "tst": {
+      "url": "",
+      "api": ""
+    },
+    "hml": {
+      "url": "",
+      "api": ""
+    }
   },
   "azure": {
     "organizacao": "",
     "projeto": "",
     "wiki": "",
     "wikiRaiz": "",
-    "wikiDocumentosTeste": "Squads/Testes & QA/Documentos de Testes",
+    "wikiDocumentosTeste": "",
     "wikiLogo": "",
     "iterationPath": "",
     "modulosWiki": [],
@@ -42,5 +52,8 @@
   },
   "requisitos": {
     "pastaLocal": ""
+  },
+  "automacao": {
+    "dominios": []
   }
 }

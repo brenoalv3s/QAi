@@ -2,12 +2,12 @@
 /**
  * Cria Bug filho do PBI seguindo Template Bug.pdf.
  * Uso:
- *   node create-bug-from-failure.mjs --pbi 25862 --cn CN-38.1.01 --layer FE \
- *     --title "Lista de Contratos - Coluna Gerente vazia" \
+ *   node create-bug-from-failure.mjs --pbi 1234 --cn CN-12.1.01 --layer FE \
+ *     --title "Lista de Pedidos - Coluna Vendedor vazia" \
  *     --description "..." --steps "Login|Menu|Ação" \
  *     --expected "..." --actual "..." \
  *     --environment Homologação --browser "Chrome" --user "qa@..." \
- *     --severity media --references "RN-15, US 38.1 C.1" \
+ *     --severity media --references "RN-15, US 12.1 C.1" \
  *     --evidence path.png
  */
 import { readFileSync, existsSync } from 'fs';

@@ -3,7 +3,7 @@
  * Gera estrutura Playwright regressiva agrupada por domínio (ex.: demandas/)
  * com um arquivo por operação: cadastrar, editar, buscar, excluir, tela-inicial.
  *
- * Uso: node scaffold-regression.mjs --feature "Demandas - Cadastrar"
+ * Uso: node scaffold-regression.mjs --feature "Pedidos - Cadastrar"
  */
 import { mkdirSync, writeFileSync, existsSync, readFileSync } from 'fs';
 import { resolve, dirname } from 'path';
@@ -111,7 +111,7 @@ async function main() {
 
   if (!feature) {
     console.error(
-      'Uso: node scaffold-regression.mjs --feature "Demandas - Cadastrar" [--plan-id N] [--suite-id N] [--force] [--dry-run] [--include-wiki-gaps]',
+      'Uso: node scaffold-regression.mjs --feature "Pedidos - Cadastrar" [--plan-id N] [--suite-id N] [--force] [--dry-run] [--include-wiki-gaps]',
     );
     process.exit(1);
   }

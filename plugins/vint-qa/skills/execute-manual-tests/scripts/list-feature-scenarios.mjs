@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Lista cenários de uma feature no Test Plans (modo Execute).
- * Uso: node list-feature-scenarios.mjs --feature "Gerar Relatório Carteira de Contratos"
+ * Uso: node list-feature-scenarios.mjs --feature "Gerar Relatório de Vendas"
  */
 import { loadPat } from './lib/azure-api.mjs';
 import {

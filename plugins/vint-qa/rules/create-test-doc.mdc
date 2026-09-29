@@ -10,7 +10,7 @@ Ao criar ou editar arquivos em `docs/test-docs/`, seguir rigidamente o template 
 
 ## Fonte de verdade do template
 
-1. **Wiki do projeto:** documentos em `{azure.wikiDocumentosTeste}` (ex.: DOC 37.1)
+1. **Wiki do projeto:** documentos em `{azure.wikiDocumentosTeste}` (ex.: DOC 11.1)
 2. **Markdown canônico:** `{VINT_QA_ROOT}/skills/create-test-doc/TEMPLATE.md`
 
 O agente **não pode** alterar a estrutura do template — apenas preencher conteúdo.

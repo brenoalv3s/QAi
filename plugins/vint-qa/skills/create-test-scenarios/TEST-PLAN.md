@@ -8,8 +8,8 @@ Valores lidos do `.hub-projeto.json` do projeto aberto (nunca fixos no plugin). 
 |--|--|
 | Organização | `azure.organizacao` |
 | Projeto | `azure.projeto` |
-| Planos por US/palavra-chave | `azure.testPlans.planos`: `[{ "usPrefix": "09.", "keywords": ["colaborador"], "planName": "Colaboradores", "parentSuite": "Colaboradores" }]` |
-| Apelidos de suíte | `azure.testPlans.aliasesSuites`: `[{ "keywords": ["carteira de contratos"], "suiteName": "Relatório Carteira de Contratos" }]` |
+| Planos por US/palavra-chave | `azure.testPlans.planos`: `[{ "usPrefix": "05.", "keywords": ["produto"], "planName": "Produtos", "parentSuite": "Produtos" }]` |
+| Apelidos de suíte | `azure.testPlans.aliasesSuites`: `[{ "keywords": ["vendas por periodo"], "suiteName": "Relatório de Vendas" }]` |
 | Campos do Test Case | `azure.camposTestCase` (`criticidade`, `estrategia`, `statusAutomacao`) |
 | Plano fixo (opcional) | `.env`: `AZURE_DEVOPS_PLAN_ID`, `AZURE_DEVOPS_PARENT_SUITE` |
 | URL base | `https://dev.azure.com/{azure.organizacao}/{azure.projeto}/_testPlans` |
@@ -23,12 +23,12 @@ Test Plan (módulo)
         └── Suite de execução (lote do agente) ← cenários criados aqui
 ```
 
-Exemplo US 38.1:
+Exemplo US 12.1:
 
 ```
-PMO (planId: 25350)
-└── Central de Relatórios da Área PMO (25576)
-    └── Relatório Carteira de Contratos (25578)
+Comercial (planId: 100)
+└── Central de Relatórios Comerciais (101)
+    └── Relatório de Vendas (102)
         └── Cenários — Agent — 08/06/2026 ← test cases
 ```
 
@@ -40,9 +40,8 @@ Buscar plano cujo nome corresponda ao módulo da US:
 
 | US / feature | Test Plan |
 |--|--|
-| US 38.x (Central de Relatórios) | `PMO` |
-| US 08.x | `Tecnologias` |
-| US 09.x | `Colaboradores` |
+| Prefixo da US em `azure.testPlans.planos` (ex.: `12.` → `Comercial`) | `planName` configurado |
+| Palavra-chave do título em `planos[].keywords` | `planName` configurado |
 | Demais | Buscar plano com nome similar ao módulo pai da wiki |
 
 API: `GET _apis/testplan/plans?api-version=7.1`
@@ -55,9 +54,8 @@ Matching fuzzy (case-insensitive) por palavras-chave:
 
 | Feature informada | Suite alvo |
 |--|--|
-| Carteira de Contratos | `Relatório Carteira de Contratos` |
-| Financeiro dos Contratos | `Relatório Financeiro dos Contratos` |
-| Roadmap Executivo | `Relatório Roadmap Executivo de Demandas` |
+| Vendas por período | `Relatório de Vendas` (via `azure.testPlans.aliasesSuites`) |
+| Qualquer outra | Suite com nome mais próximo ao da feature |
 
 ### 3. Criar suites ausentes
 

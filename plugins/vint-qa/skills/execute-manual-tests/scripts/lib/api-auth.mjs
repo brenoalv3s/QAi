@@ -1,6 +1,6 @@
 /**
  * Autenticação da API da aplicação sob teste — POST {API_BASE_URL}{AUTH_LOGIN_PATH}
- * Token usado nas chamadas Swagger/API. Lê o .env do projeto (nomes SGD_* antigos continuam aceitos).
+ * Token usado nas chamadas Swagger/API. Lê o .env do projeto.
  */
 import '../../../../runtime/lib/project.mjs';
 

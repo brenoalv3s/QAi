@@ -52,7 +52,7 @@ No Cursor: **Settings → GitHub → Connect**
 | Secret | Obrigatório | Descrição |
 |--|--|--|
 | `AZURE_DEVOPS_PAT` | Sim | Work Items + Test Plans + Wiki |
-| `BASE_URL` | Sim | URL HML da aplicação (ex.: `https://hml.sgd...`) |
+| `BASE_URL` | Sim | URL HML da aplicação (ex.: `https://hml.app...`) |
 | `API_BASE_URL` | Recomendado | Base da API (padrão: `BASE_URL`) |
 | `TEST_USER` | Sim | Login — usado em `/api/auth/login` e UI |
 | `TEST_PASSWORD` | Sim | Senha — usado em `/api/auth/login` e UI |
@@ -151,7 +151,7 @@ Para rodar **uma feature** sem cron nem gates do board, use a esteira ou o agent
 node "$HOME/.vint-qa/vqa.mjs" skills/execute-manual-tests/scripts/discover-execute-candidates.mjs
 
 # Executar uma feature sob demanda
-@execute-manual-tests-manual Gerar Relatório Carteira de Contratos
+@execute-manual-tests-manual Gerar Relatório de Vendas
 ```
 
 ---
